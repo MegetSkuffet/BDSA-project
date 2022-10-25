@@ -1,4 +1,4 @@
-namespace GitInsight.tests;
+namespace GitInsight.Tests;
 
 public class UnitTest1
 {
