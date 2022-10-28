@@ -7,6 +7,6 @@ public class CommitFrequency
 
     public CommitFrequency(IRepository repository)
     {
-
+        _repository = repository;
     }
 }
