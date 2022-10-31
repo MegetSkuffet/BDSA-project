@@ -14,7 +14,7 @@ public class CommitFrequency : ICommitFrequency
         var commits = _repository.Commits.ToList();
 
         return commits.GroupBy(c => c.Author.When.Date)
-            .Select(g => string.Format("{0} {1:dd-MM-yy}", g.Count(), g.Key));
+            .Select(g => $"{g.Count()} {g.Key:dd-MM-yy}");
     }
 
     public IEnumerable<(string, IEnumerable<string>)> GetGroupedByAuthor()
@@ -28,7 +28,7 @@ public class CommitFrequency : ICommitFrequency
         {
             yield return (author, commits.Where(c => c.Author.Name == author)
                 .GroupBy(i => i.Author.When.Date)
-                .Select(g => String.Format("{0} {1:dd-MM-yy}", g.Count(), g.Key)));
+                .Select(g => $"{g.Count()} {g.Key:dd-MM-yy}"));
         }
     }
 }
