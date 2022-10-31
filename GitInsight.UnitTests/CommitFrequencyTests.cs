@@ -1,4 +1,4 @@
-namespace GitInsight.Tests;
+namespace GitInsight.UnitTests;
 
 public class CommitFrequencyTests
 {

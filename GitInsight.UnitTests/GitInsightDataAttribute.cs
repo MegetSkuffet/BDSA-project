@@ -1,7 +1,7 @@
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 
-namespace GitInsight.Tests;
+namespace GitInsight.UnitTests;
 
 public class GitInsightDataAttribute : AutoDataAttribute
 {
