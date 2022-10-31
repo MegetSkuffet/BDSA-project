@@ -2,9 +2,9 @@ namespace GitInsight;
 
 public class CommitFrequency : ICommitFrequency
 {
-    private readonly IRepository _repository;
+    private readonly IInsightRepository _repository;
 
-    public CommitFrequency(IRepository repository)
+    public CommitFrequency(IInsightRepository repository)
     {
         _repository = repository;
     }
