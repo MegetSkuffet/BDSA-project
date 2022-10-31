@@ -1,4 +1,4 @@
 global using AutoFixture.Xunit2;
 global using FluentAssertions;
-global using LibGit2Sharp;
+global using GitInsight.Abstractions;
 global using Xunit;
