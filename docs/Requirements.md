@@ -1,6 +1,5 @@
 # Functional Recuirements
 | 1 | As a paremter, it should receive the path to a Git repository that resides in a local directory |
-|---|-------------------------------------------------------------------------------------------------|
 | 2 | Should print different outputs depending on different modes |
 |---|------------------|
 |2.1 | "Commit frequency: Should print amounts of commits in total for all days grouped by day" |
