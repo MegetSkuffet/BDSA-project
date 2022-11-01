@@ -6,3 +6,4 @@ Functional requirement
 #2.2 "Commit Author Mode
 	Should print the amount of commits by a given author grouped by amount per day"
 #3 All results are print in StdOut
+#4 
