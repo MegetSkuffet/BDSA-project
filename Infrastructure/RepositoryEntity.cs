@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure;
 
-public class Repository
+public class RepositoryEntity
 {
     public string ID { get; set; }
 }

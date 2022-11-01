@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure;
 
-public class Commit
+public class CommitEntity
 {
     //Commit ID
     public string ID { get; set; }
