@@ -10,6 +10,6 @@ public class CommitFrequencyTests
         var result = frequency.GetAll();
 
         result.Should()
-            .ContainInOrder(repository.Commits.Select(c => $"1 {c.Author.When:dd-MM-yy}"));
+            .ContainInOrder(repository.Commits.Select(c => $"{1,7} {c.Author.When:dd-MM-yy}"));
     }
 }
