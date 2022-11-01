@@ -17,7 +17,7 @@ public class CommitFrequency : ICommitFrequency
             .Select(g => $"{g.Count()} {g.Key:dd-MM-yy}");
     }
 
-    public IEnumerable<(string, IEnumerable<string>)> GetGroupedByAuthor()
+    public IEnumerable<(string Author, IEnumerable<string> Lines)> GetGroupedByAuthor()
     {
         var commits = _repository.Commits.ToList();
 
