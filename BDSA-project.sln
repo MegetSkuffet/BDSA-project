@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitInsight", "GitInsight\Gi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitInsight.UnitTests", "GitInsight.UnitTests\GitInsight.UnitTests.csproj", "{FE4DC217-4B1C-4FD9-AF8E-BADE8E52DE76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3142AFAA-6225-48C1-BD1D-7AC1CFE5116E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{FE4DC217-4B1C-4FD9-AF8E-BADE8E52DE76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE4DC217-4B1C-4FD9-AF8E-BADE8E52DE76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE4DC217-4B1C-4FD9-AF8E-BADE8E52DE76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3142AFAA-6225-48C1-BD1D-7AC1CFE5116E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3142AFAA-6225-48C1-BD1D-7AC1CFE5116E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3142AFAA-6225-48C1-BD1D-7AC1CFE5116E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3142AFAA-6225-48C1-BD1D-7AC1CFE5116E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
