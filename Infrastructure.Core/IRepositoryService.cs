@@ -3,6 +3,7 @@ namespace Infrastructure.Core;
 
 public interface IRepositoryService
 {
-    (Response Response, string ID) Create(RepositoryCreateDTO repository);
+    (Response response, string ID, string LastcommitSha) Create(RepositoryCreateDTO repository);
 
+    Response Update(RepositoryUpdateDTO repository);
 }
