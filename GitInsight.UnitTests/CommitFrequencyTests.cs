@@ -50,4 +50,18 @@ public class CommitFrequencyTests
         result.Should()
             .BeEmpty();
     }
+
+    [Theory]
+    [GitInsightData]
+    public void GetGroupedByAuthor_ReturnsGroupedFrequenciesAndDates_GivenUniqueAuthorCommits(
+        [Frozen] IInsightRepository repository, CommitFrequency frequency)
+    {
+        var result = frequency.GetGroupedByAuthor();
+
+        var commits = repository.Commits.ToList();
+        result.Should()
+            .BeEquivalentTo(commits.Select(c => (c.Author.Name, commits.Where(c2 => c2.Author.Name == c.Author.Name)
+                .GroupBy(c2 => c2.Author.When.Date)
+                .Select(g => $"{1,7} {g.Key:dd-MM-yy}"))), o => o.WithStrictOrdering());
+    }
 }

@@ -27,7 +27,7 @@ public class CommitFrequency : ICommitFrequency
         foreach (var author in authors)
         {
             yield return (author, commits.Where(c => c.Author.Name == author)
-                .GroupBy(i => i.Author.When.Date)
+                .GroupBy(c => c.Author.When.Date)
                 .Select(g => $"{g.Count(),7} {g.Key:dd-MM-yy}"));
         }
     }
