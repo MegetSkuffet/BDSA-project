@@ -9,9 +9,7 @@ public class GitInsightContext: DbContext
     {
     }
     
-    //Vi behøver vel egentligt slet ikke author, gør vi? Det er en weak entity type der kun har én attribute. At lave
-    //et helt table til det virker skørt.
-    //public virtual DbSet<AuthorEntity> Authors { get; set; }
+
     public virtual DbSet<CommitEntity> Commits { get; set; }
     public virtual DbSet<RepositoryEntity> Repositories { get; set; }
     
