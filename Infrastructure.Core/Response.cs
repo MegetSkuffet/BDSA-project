@@ -4,5 +4,6 @@ public enum Response
     Created,
     NotFound,
     BadRequest,
-    Conflict
+    Conflict,
+    Updated
 }
