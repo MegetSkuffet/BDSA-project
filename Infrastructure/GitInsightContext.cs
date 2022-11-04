@@ -10,9 +10,10 @@ public class GitInsightContext: DbContext
     }
     
 
-    public virtual DbSet<CommitEntity> Commits { get; set; }
+    public virtual DbSet<CommitEntity> CommitsPrDay { get; set; }
     public virtual DbSet<RepositoryEntity> Repositories { get; set; }
-    
+    public virtual DbSet<AuthorEntity> CommitsPrAuthor { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         
