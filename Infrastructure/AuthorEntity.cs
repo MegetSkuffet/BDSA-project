@@ -8,5 +8,5 @@ public class User
 
     public DateTime date {get; set;}
 
-    public int amountPrDay{get; set;}
+    public int amountPerDay{get; set;}
 }

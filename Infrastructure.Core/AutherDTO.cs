@@ -2,9 +2,9 @@ namespace Infrastructure.Core;
 
 public class AuthorDTO{
 
-    public record AutherDTO(string Username);
+    public record AuthorDTO(string Username, string RID, DateTime date, int amountPerDay);
 
-    public AutherCreateDTO(string Username);
+    public AuthorCreateDTO(string Username, string RID, DateTime date, int amountPerDay);
 
     
 }
