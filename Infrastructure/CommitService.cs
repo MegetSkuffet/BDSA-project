@@ -10,15 +10,15 @@ public class CommitService : ICommitService
     {
         _context = context;
     }
-    public (Response Response, string CommitId) Create(CommitCreateDTO commit)
+    public (Response Response, string CommitId, DateTime date) Create(CommitDTO commit)
     {
-        var entity = _context.CommitsPrDay.FirstOrDefault(c => c.RID == commit.RID);
+        var entity = _context.CommitsPrDay.FirstOrDefault(c => c.RID == commit.RID && c.date == commit.date);
         Response res;
         if (entity is null)
         {
-            entity = new CommitEntity() { RID = commit.RID, };
+            entity = new CommitEntity() { RID = commit.RID, date = commit.date, amountPrDay = commit.amountPrDay};
             _context.CommitsPrDay.Add(entity);
-            _context.CommitsPrAuthor.SaveChanges();
+            _context.SaveChanges();
             res = Response.Created;
         }
         else
@@ -26,16 +26,12 @@ public class CommitService : ICommitService
             res = Response.Conflict;
         }
 
-        var created = new CommitDTO(entity.RID, entity.date, entity.CommitsPrDay);
-        return (res, created);
+        var created = new CommitDTO(entity.RID, entity.date, entity.amountPrDay);
+        return (res, created.RID, created.date);
     }
-    IReadOnlyCollection<CommitDTO> ReadAllByDate()
+    public IReadOnlyCollection<CommitDTO> ReadAllCommits()
     {
-
+        throw new NotImplementedException();
     }
-
-    IReadOnlyCollection<CommitDTO> ReadAllByAuthor(string Author)
-    {
-        throw new NotImplemented();
-    }
+    
 }
