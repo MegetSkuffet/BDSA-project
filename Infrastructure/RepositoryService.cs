@@ -1,6 +1,6 @@
+using GitInsight.Core;
 namespace Infrastructure;
 
-using Infrastructure.Core;
 
 public class RepositoryService : IRepositoryService
 {

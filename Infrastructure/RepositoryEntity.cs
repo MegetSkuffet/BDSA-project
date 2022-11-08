@@ -1,8 +1,8 @@
 ﻿namespace Infrastructure;
 
-public class Repository
+public class RepositoryEntity
 {
     public string ID { get; set; }
 
-    public string LastcommitSha { get; set; }
+    public string LastCommitSha { get; set; }
 }

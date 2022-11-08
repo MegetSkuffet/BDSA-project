@@ -10,7 +10,7 @@ public class AuthorService : IAuthorService
         _context = context;
     }
 
-    (Response Response, string Username) Create(AuthorCreateDTO Author)
+    public (Response Response, string Username) Create(AuthorCreateDTO Author)
     {
         var entity = _context.CommitsPrAuthor.FirstOrDefault(a => a.Username == Author.Username);
         Response res;

@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure;
 
-public class User
+public class AuthorEntity
 {
     public string Username { get; set; }
 

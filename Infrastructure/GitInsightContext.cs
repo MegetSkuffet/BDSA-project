@@ -20,7 +20,7 @@ public class GitInsightContext: DbContext
         modelBuilder.Entity<RepositoryEntity>(r =>
         {
             r.HasKey(p => p.ID);
-            r.Property(p => p.lastCommitSha).IsRequired();
+            r.Property(p => p.LastCommitSha).IsRequired();
             
         });
 
@@ -33,8 +33,8 @@ public class GitInsightContext: DbContext
 
         modelBuilder.Entity<AuthorEntity>(A =>
         {
-            A.HasKey(a => new { a.RID, a.date, a.author });
-            A.Property(a => a.amountPrDay).IsRequired();
+            A.HasKey(a => new { a.RID, a.date, a.Username });
+            A.Property(a => a.amountPerDay).IsRequired();
         });
     }
     
