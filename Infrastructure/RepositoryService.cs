@@ -39,7 +39,7 @@ public class RepositoryService : IRepositoryService
 
     public Response Update(RepositoryUpdateDTO repository)
     {
-        var entity = _context.Repositories.FirstOrDefault(r => r.ID == repository.ID);
+        var entity = _context.Repositories.FirstOrDefault(r => r.ID == repository.ID );
         Response res;
 
         if (entity is not null)
@@ -47,6 +47,8 @@ public class RepositoryService : IRepositoryService
             entity.LastCommitSha = repository.LastcommitSha;
             _context.SaveChanges();
             res = Response.Updated;
+        }else if(_context.Repositories.FirstOrDefault(r=>r.ID !=repository.ID)!=null) {
+            res = Response.Conflict;
         }else {
             res = Response.NotFound;
         }
