@@ -16,7 +16,7 @@ public class AuthorService : IAuthorService
         Response res;
         if(entity is null)
         {
-            entity = new AuthorDTO() 
+            entity = new AuthorEntity() 
             {
                 Username = Author.Username,
                 RID = Author.RID,
@@ -24,15 +24,23 @@ public class AuthorService : IAuthorService
                 amountPerDay = Author.amountPerDay
             };
             _context.CommitsPrAuthor.Add(entity);
-            _context.CommitsPrAuthor.SaveChanges();
+            _context.SaveChanges();
             res = Response.Created;
         } 
         else
         {
             res = Response.Conflict;
         }
-        var created = new RepositoryDTO(entity.Username, entity.RID, entity.date, entity.amountPerDay);
-        return (res, created); 
+        var created = new AuthorDTO(entity.Username, entity.RID, entity.date, entity.amountPerDay);
+        return (res, created.Username); 
     }
 
+    public IReadOnlyCollection<AuthorDTO> ReadAllByAuthor()
+    {
+        var authors = from a in _context.CommitsPrAuthor
+            orderby a.Username
+            select new AuthorDTO(a.Username,a.RID,a.date,a.amountPerDay);
+        
+        return authors.ToList();
+    }
 }

@@ -31,7 +31,10 @@ public class CommitService : ICommitService
     }
     public IReadOnlyCollection<CommitDTO> ReadAllCommits()
     {
-        throw new NotImplementedException();
+        var commits = from c in _context.CommitsPrDay
+            orderby c.date
+            select new CommitDTO(c.RID,c.date, c.amountPrDay);
+        return commits.ToArray();
     }
     
 }
