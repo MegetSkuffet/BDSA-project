@@ -1,4 +1,4 @@
-namespace Infrastructure.Core;
+namespace GitInsight.Core;
 
 
 public interface ICommitService

@@ -1,4 +1,4 @@
-using Infrastructure.Core;
+using GitInsight.Core;
 namespace Infrastructure;
 
 public class CommitService : ICommitService

@@ -1,11 +1,11 @@
-using Infrastructure.Core;
+using GitInsight.Core;
 namespace Infrastructure;
 
 public class AuthorService : IAuthorService
 {
     private readonly GitInsightContext _context;
 
-    publix AuthorService(GitInsightContext context)
+    public AuthorService(GitInsightContext context)
     {
         _context = context;
     }
