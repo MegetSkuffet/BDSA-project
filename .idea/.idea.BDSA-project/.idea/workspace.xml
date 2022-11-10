@@ -6,11 +6,12 @@
     <projectFile>Infrastructure.Core/Infrastructure.Core.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef02e8f1-8dfd-4c0d-9f3b-61d4f47394cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GitInsight/Database.cs" afterDir="false" />
+    <list default="true" id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight.UnitTests/CommitServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight.UnitTests/CommitServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight/GitInsight.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/GitInsight.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight/Database.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Database.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/RepositoryService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/RepositoryService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

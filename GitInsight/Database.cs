@@ -27,14 +27,48 @@ public class Database
         _repositoryService = new RepositoryService(_context);
     }
 
-    public void frequency(string RID, string LatestSha, IList<Commit> list)
+    public void frequencyMode(Repository repository)
     {
+        var repoID = getRepoID(repository);
+        var latestSha = getnewestCommitSha(repository);
+        if (_repositoryService.checkLatestSha(new RepositoryUpdateDTO(repoID, latestSha)))
+        {
+            //Same sha, read from db instead of writing
+            Console.WriteLine("Reading instead of writing");
+        } else {
+            Console.WriteLine("Writing instead of reading");
+            _repositoryService.Create(new RepositoryCreateDTO(repoID, latestSha));
         
+            addCommitsFrequencyMode(repository.Commits.ToList(),repoID);
+
+        }
+        Console.WriteLine(_context.Repositories.Count());
+        Console.WriteLine(_context.CommitsPrDay.Count());
     }
 
-
-    public bool checkLatestSha(string RID, string latestSha)
+    private string getRepoID(Repository r)
     {
-        
+        return r.Commits.ToList()[0].Sha;
     }
+
+    private string getnewestCommitSha(Repository r)
+    {
+        return r.Commits.ToList()[r.Commits.ToList().Count - 1].Sha;
+    }
+
+    private void addCommitsFrequencyMode(IList<Commit> commits, string ID)
+    {
+        var groupedBy = commits.GroupBy(c => c.Author.When.Date);
+        foreach (var c in groupedBy)
+        {
+            _commitService.Create(new CommitDTO(ID, c.Key, c.Count()));
+        }
+    }
+
+    public IReadOnlyCollection<CommitDTO> getAllCommits()
+    {
+        return _commitService.ReadAllCommits();
+    }
+    
+    public GitInsightContext Context => _context;
 }

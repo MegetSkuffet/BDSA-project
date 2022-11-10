@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using GitInsight.Core;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GitInsight;
 
@@ -6,57 +8,24 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        var parser = new Parser(s =>
-        {
-            s.EnableDashDash = true;
-            s.HelpWriter = Console.Error;
-        });
-        var result = parser.ParseArguments<Options>(args);
-        var options = result.Value;
-
-        if (result.Tag == ParserResultType.NotParsed)
-        {
-            return;
-        }
-
-        var repository = new Repository(options.RepositoryPath);
-        var insightRepository = new InsightRepository(repository);
-        var frequency = new CommitFrequency(insightRepository);
-
-        if (options.AuthorMode)
-        {
-            PrintAuthorMode(frequency);
-        }
-        else
-        {
-            PrintFrequencyMode(frequency);
-        }
+       
+        var repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-02");
+        Database db = new Database();
+        
+        
+        db.frequencyMode(repository);
+        PrintFrequencyModeFromDb(db.getAllCommits());
+        db.frequencyMode(repository);
+        PrintFrequencyModeFromDb(db.getAllCommits());
+        
+        
     }
 
-    private static void PrintFrequencyMode(ICommitFrequency frequency)
+    private static void PrintFrequencyModeFromDb(IReadOnlyCollection<CommitDTO> commits)
     {
-        var lines = frequency.GetAll();
-
-        foreach (var line in lines)
+        foreach (var v in commits)
         {
-            Console.WriteLine(line);
-        }
-    }
-
-    private static void PrintAuthorMode(ICommitFrequency frequency)
-    {
-        var groupedLines = frequency.GetGroupedByAuthor();
-
-        foreach (var grouping in groupedLines)
-        {
-            Console.WriteLine(grouping.Author);
-
-            foreach (var line in grouping.Lines)
-            {
-                Console.WriteLine(line);
-            }
-
-            Console.WriteLine();
+            Console.WriteLine(v.date + ": " + v.amountPrDay);
         }
     }
 }

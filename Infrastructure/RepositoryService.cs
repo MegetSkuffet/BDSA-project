@@ -54,4 +54,22 @@ public class RepositoryService : IRepositoryService
         }
         return res;
     }
+
+    public bool checkLatestSha(RepositoryUpdateDTO repository)
+    {
+        var entity = _context.Repositories.FirstOrDefault(r => r.ID == repository.ID );
+        Response res;
+
+        if (entity is not null)
+        {
+            if (entity.LastCommitSha == repository.LastcommitSha)
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
 }
