@@ -17,7 +17,7 @@ public class DatabaseTests
     [Fact]
     public void read_when_empty_returns_empty()
     {
-        var actual =_db.getAllCommits();
+        var actual =_db.getAllCommits(_repository);
         actual.Should().BeEmpty();
         
     }
@@ -26,7 +26,7 @@ public class DatabaseTests
     public void frequencyMode_should_fill_commitDbSet()
     {
         _db.frequencyMode(_repository);
-        var actual = _db.getAllCommits();
+        var actual = _db.getAllCommits(_repository);
         actual.Count.Should().BeGreaterThan(3);
     }
 

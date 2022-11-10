@@ -6,9 +6,13 @@
     <projectFile>Infrastructure.Core/Infrastructure.Core.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="Made program read and write to database">
+    <list default="true" id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/GitInsight/IDatabase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GitInsight/Database.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Database.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GitInsight/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/CommitService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/CommitService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +27,13 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/Johan/Desktop/ITU/3. semester/BDSA/BDSA-project/GitInsight/Database.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d058c687f4f32ee744b3b5b0f8b92bc4bc3c713fcca6c8813fdf9db8d67bdf36/Repository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GitInsight.UnitTests/CommitServiceTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GitInsight/Database.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Infrastructure/CommitService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Infrastructure/RepositoryEntity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Infrastructure/RepositoryService.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,7 +95,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ef02e8f1-8dfd-4c0d-9f3b-61d4f47394cc" name="Changes" comment="" />
+      <changelist id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="" />
       <created>1667907472160</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -94,6 +103,7 @@
       <workItem from="1667907510241" duration="220000" />
       <workItem from="1667907766050" duration="3468000" />
       <workItem from="1667986711425" duration="3203000" />
+      <workItem from="1668090360566" duration="791000" />
     </task>
     <task id="LOCAL-00001" summary="Started tests">
       <created>1667912253886</created>

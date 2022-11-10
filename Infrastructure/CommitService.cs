@@ -36,5 +36,13 @@ public class CommitService : ICommitService
             select new CommitDTO(c.RID,c.date, c.amountPrDay);
         return commits.ToArray();
     }
+    public IReadOnlyCollection<CommitDTO> GetCommitsByRID(string RID)
+    {
+        var commits = from c in _context.CommitsPrDay
+            orderby c.date
+            where c.RID == RID
+            select new CommitDTO(c.RID,c.date, c.amountPrDay);
+        return commits.ToArray();
+    }
     
 }

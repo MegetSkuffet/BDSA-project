@@ -13,8 +13,20 @@ public static class Program
         Database db = new Database();
         
         
+        Console.WriteLine("First repository:");
         db.frequencyMode(repository);
-        PrintFrequencyModeFromDb(db.getAllCommits());
+        PrintFrequencyModeFromDb(db.getAllCommits(repository));
+        
+        Console.WriteLine("Second repository:");
+        repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-05\assignment-05");
+        db.frequencyMode(repository);
+        PrintFrequencyModeFromDb(db.getAllCommits(repository));
+        
+        Console.WriteLine("First again:");
+         repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-02");
+         db.frequencyMode(repository);
+         PrintFrequencyModeFromDb(db.getAllCommits(repository));
+         
         
         
         
