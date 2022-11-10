@@ -15,8 +15,7 @@ public static class Program
         
         db.frequencyMode(repository);
         PrintFrequencyModeFromDb(db.getAllCommits());
-        db.frequencyMode(repository);
-        PrintFrequencyModeFromDb(db.getAllCommits());
+        
         
         
     }

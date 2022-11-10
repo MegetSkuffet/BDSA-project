@@ -31,33 +31,36 @@ public class Database
     {
         var repoID = getRepoID(repository);
         var latestSha = getnewestCommitSha(repository);
-        if (_repositoryService.checkLatestSha(new RepositoryUpdateDTO(repoID, latestSha)))
+        if (!_repositoryService.checkLatestSha(new RepositoryUpdateDTO(repoID, latestSha)))
         {
-            //Same sha, read from db instead of writing
-            Console.WriteLine("Reading instead of writing");
-        } else {
-            Console.WriteLine("Writing instead of reading");
-            _repositoryService.Create(new RepositoryCreateDTO(repoID, latestSha));
+            //Different sha, write repo entity into repo DBset and write all commit entities into commitsprday DBset
+            var response = _repositoryService.Create(new RepositoryCreateDTO(repoID, latestSha));
+            
+            if (response.response == Response.Conflict)
+            {
+                //RepoID already in DB, change existing entity sha to new latestsha.
+                _repositoryService.Update(new RepositoryUpdateDTO(repoID, latestSha));
+            }
         
             addCommitsFrequencyMode(repository.Commits.ToList(),repoID);
-
         }
-        Console.WriteLine(_context.Repositories.Count());
-        Console.WriteLine(_context.CommitsPrDay.Count());
     }
 
     private string getRepoID(Repository r)
     {
+        //Returns SHA of very first commit on repo, should be unique
         return r.Commits.ToList()[0].Sha;
     }
 
     private string getnewestCommitSha(Repository r)
     {
+        //Returns SHA of latest commit on the repo
         return r.Commits.ToList()[r.Commits.ToList().Count - 1].Sha;
     }
 
     private void addCommitsFrequencyMode(IList<Commit> commits, string ID)
     {
+        //Adds all entities into commitsPrDay DBset for said repo. Only done if latest sha of repo is different from local sha of repo.
         var groupedBy = commits.GroupBy(c => c.Author.When.Date);
         foreach (var c in groupedBy)
         {
@@ -70,5 +73,6 @@ public class Database
         return _commitService.ReadAllCommits();
     }
     
+    //Only used for unit testing purposes
     public GitInsightContext Context => _context;
 }

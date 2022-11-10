@@ -6,12 +6,9 @@
     <projectFile>Infrastructure.Core/Infrastructure.Core.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="Made program read and write to database">
       <change beforePath="$PROJECT_DIR$/GitInsight/Database.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Database.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GitInsight/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/RepositoryService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/RepositoryService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +23,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/Johan/Desktop/ITU/3. semester/BDSA/BDSA-project/GitInsight/Database.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Infrastructure/CommitService.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -104,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667912253886</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Made program read and write to database">
+      <created>1668083936435</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668083936435</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,6 +143,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Started tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started tests" />
+    <MESSAGE value="Made program read and write to database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made program read and write to database" />
   </component>
 </project>
