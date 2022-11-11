@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GitInsight.Core.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GitInsight.Controllers;
 
@@ -6,13 +7,29 @@ namespace GitInsight.Controllers;
 [ApiController]
 public class RepositoryController: Controller
 {
-    //private readonly IFooService _fooService; 
     
-    //Call some service to clone or pull repo from route
+    private readonly ICloneService _cloneService;
+
+    public RepositoryController(ICloneService cloneService)
+    {
+        _cloneService = cloneService;
+    }
+
 
     [Route("/{user}/{repository}")]
-    public async Task<IActionResult> Bar(string user, string repository)
+    public async Task<IActionResult> Clone(string user, string repository)
     {
+        string repoPath;
+        if (!_cloneService.FindRepositoryOnMachine(user,repository, out repoPath))
+        {
+            repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
+        }
+        else
+        {
+            //Update the local repo
+            //Do analysis of repo or get analysis from db
+        }
+        
         return Json(new {
             user,repository
         });

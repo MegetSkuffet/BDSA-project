@@ -5,7 +5,13 @@
     <projectFile>GitInsight/GitInsight.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef02e8f1-8dfd-4c0d-9f3b-61d4f47394cc" name="Changes" comment="" />
+    <list default="true" id="ef02e8f1-8dfd-4c0d-9f3b-61d4f47394cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Core/Services/ICloneService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight/Controllers/RepositoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Controllers/RepositoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight/GitInsight.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/GitInsight.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight/Usings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Usings.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,24 +24,30 @@
       </map>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/GitInsight/CommitFrequency.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GitInsight/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GitInsight/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2HGNTRPEpWh8S5OdRI2GJEDvwBx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Project.GitInsight">
     <configuration name="Core" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -84,6 +96,7 @@
       <updated>1667907472160</updated>
       <workItem from="1667907510241" duration="220000" />
       <workItem from="1667907766050" duration="3468000" />
+      <workItem from="1668165031782" duration="879000" />
     </task>
     <servers />
   </component>
