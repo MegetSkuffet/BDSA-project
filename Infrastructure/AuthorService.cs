@@ -12,7 +12,7 @@ public class AuthorService : IAuthorService
 
     public (Response Response, string Username) Create(AuthorCreateDTO Author)
     {
-        var entity = _context.CommitsPrAuthor.FirstOrDefault(a => a.Username == Author.Username);
+        var entity = _context.CommitsPrAuthor.FirstOrDefault(a => a.Username == Author.Username && a.date == Author.date && a.RID == Author.RID);
         Response res;
         if(entity is null)
         {
@@ -30,6 +30,7 @@ public class AuthorService : IAuthorService
         else
         {
             res = Response.Conflict;
+            entity.amountPerDay++;
         }
         var created = new AuthorDTO(entity.Username, entity.RID, entity.date, entity.amountPerDay);
         return (res, created.Username); 
@@ -41,6 +42,17 @@ public class AuthorService : IAuthorService
             orderby a.Username
             select new AuthorDTO(a.Username,a.RID,a.date,a.amountPerDay);
         
+        return authors.ToList();
+    }
+    
+    public IReadOnlyCollection<AuthorDTO> ReadAllByAuthorWithRID(string RID)
+    {
+        var authors = from a in _context.CommitsPrAuthor
+            orderby a.Username
+            where a.RID == RID
+            select new AuthorDTO(a.Username,a.RID,a.date,a.amountPerDay);
+        Console.WriteLine(authors.Count());
+
         return authors.ToList();
     }
 }

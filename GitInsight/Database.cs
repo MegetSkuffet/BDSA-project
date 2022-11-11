@@ -27,7 +27,7 @@ public class Database : IDatabase
         _repositoryService = new RepositoryService(_context);
     }
 
-    public void frequencyMode(IRepository repository)
+    public void AddRepoEntities(IRepository repository)
     {
         var repoId = GetRepoId(repository);
         var latestSha = GetnewestCommitSha(repository);
@@ -41,7 +41,7 @@ public class Database : IDatabase
                 //RepoID already in DB, change existing entity sha to new latestsha.
                 _repositoryService.Update(new RepositoryUpdateDTO(repoId, latestSha));
             }
-        
+            AddCommitsAuthorMode(repository.Commits.ToList(),repoId);
             AddCommitsFrequencyMode(repository.Commits.ToList(),repoId);
         }
     }
@@ -58,6 +58,26 @@ public class Database : IDatabase
         return r.Commits.ToList()[r.Commits.ToList().Count - 1].Sha;
     }
 
+    private void AddCommitsAuthorMode(IList<Commit> commits, string id)
+    {
+        var dtos = commits.Select(c
+            => new AuthorCreateDTO(c.Author.Name, id, c.Author.When.Date,
+                CountAuthorCommitsForDay(commits, c.Author.Name, c.Author.When.Date)));
+        Console.WriteLine("Size: " + dtos.Count());
+
+        foreach (var dto in dtos)
+        {
+            _authorService.Create(dto);
+        }
+        
+        
+    }
+
+    private static int CountAuthorCommitsForDay(IList<Commit> commits, string authorName, DateTime date)
+    {
+        return commits.Count(c => c.Author.Name == authorName && c.Author.When.Date == date);
+    }
+    
     private void AddCommitsFrequencyMode(IList<Commit> commits, string id)
     {
         //Adds all entities into commitsPrDay DBset for said repo. Only done if latest sha of repo is different from local sha of repo.
@@ -73,7 +93,13 @@ public class Database : IDatabase
         var repoId = GetRepoId(repository);
         return _commitService.GetCommitsByRID(repoId);
     }
-    
+
+    public IReadOnlyCollection<AuthorDTO> getAllAuthors(IRepository repository)
+    {
+        var repoId = GetRepoId(repository);
+        return _authorService.ReadAllByAuthorWithRID(repoId);
+    }
+
     //Only used for unit testing purposes
     public GitInsightContext Context => _context;
 }

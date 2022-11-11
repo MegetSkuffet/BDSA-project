@@ -25,7 +25,7 @@ public class DatabaseTests
     [Fact]
     public void frequencyMode_should_fill_commitDbSet()
     {
-        _db.frequencyMode(_repository);
+        _db.AddRepoEntities(_repository);
         var actual = _db.getAllCommits(_repository);
         actual.Count.Should().BeGreaterThan(3);
     }
@@ -33,7 +33,7 @@ public class DatabaseTests
     [Fact]
     public void frequencyMode_should_put_1_in_repoDbSet()
     {
-        _db.frequencyMode(_repository);
+        _db.AddRepoEntities(_repository);
         var actual = _db.Context.Repositories.Count();
         actual.Should().Be(1);
     }
