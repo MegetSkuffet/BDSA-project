@@ -17,7 +17,7 @@ public class RepositoryController: Controller
 
 
     [Route("/{user}/{repository}")]
-    public async Task<IActionResult> Clone(string user, string repository)
+    public async Task<IActionResult> CloneOrFind(string user, string repository)
     {
         string repoPath;
         if (!_cloneService.FindRepositoryOnMachine(user,repository, out repoPath))

@@ -21,7 +21,7 @@ public class RepositoryService : IRepositoryService
             entity = new RepositoryEntity()
             {
                 ID = repository.ID,
-                LastCommitSha = repository.LastcommitSha
+                LastCommitSha = repository.lastCommitSha
             };
             _context.Repositories.Add(entity);
             _context.SaveChanges();
@@ -44,7 +44,7 @@ public class RepositoryService : IRepositoryService
 
         if (entity is not null)
         {
-            entity.LastCommitSha = repository.LastcommitSha;
+            entity.LastCommitSha = repository.lastCommitSha;
             _context.SaveChanges();
             res = Response.Updated;
         }else if(_context.Repositories.FirstOrDefault(r=>r.ID !=repository.ID)!=null) {
