@@ -28,16 +28,16 @@ public class CommitServiceTests
     [Fact]
     public void Create_should_return_response_Created()
     {
-        var response = _service.Create(new CommitDTO("ExampleRepoID", new DateTime(10, 10, 10), 5));
+        var response = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
         response.Response.Should().Be(Response.Created);
-        _service.ReadAllCommits().Count.Should().Be(1);
+        _context.Commits.Count().Should().Be(1);
     }
 
     [Fact]
-    public void create_with_same_date_and_id_should_return_conflict()
+    public void create_with_same_RID_and_CID_should_return_conflict()
     {
-        var response = _service.Create(new CommitDTO("ExampleRepoID", new DateTime(10, 10, 10), 5));
-        var response2 = _service.Create(new CommitDTO("ExampleRepoID", new DateTime(10, 10, 10), 5));
+        var response = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
+        var response2 = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
         response.Response.Should().Be(Response.Created);
         response2.Response.Should().Be(Response.Conflict);
     }
@@ -45,29 +45,29 @@ public class CommitServiceTests
     [Fact]
     public void create_several_and_read_all_should_return_all()
     {
-        _service.Create(new CommitDTO("ExampleRepoID", new DateTime(10, 10, 10), 5));
-        _service.Create(new CommitDTO("ExampleRepoID", new DateTime(11, 11, 11), 5));
-        _service.Create(new CommitDTO("ExampleRepoID", new DateTime(12, 12, 12), 5));
+        var response1 = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID1","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
+        var response2 = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID2","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
+        var response3 = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID3","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
 
-        _service.ReadAllCommits().Count.Should().Be(3);
+        _context.Commits.Count().Should().Be(3);
     }
 
     [Fact]
     public void using_actual_repository()
     {
-        var repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\assignment3_bdsa\Assignment_03");
+        var repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-02");
        var commits = repository.Commits.ToList();
        var commits2 = commits.GroupBy(c => c.Author.When.Date);
        foreach (var commit in commits2)
        {
-           _service.Create(new CommitDTO("ExampleRID", commit.Key, commit.Count()));
+           var response = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
        }
-      
 
-       _service.ReadAllCommits().Count.Should().BeGreaterThan(1);
-       var list = _service.ReadAllCommits().ToList();
-       list[0].date.Should().Be(new DateTime(2022, 9, 23));
-       list[0].amountPrDay.Should().Be(7);
+
+       _service.GetAllCommits().Count().Should().Be(1);
+       var list = _service.GetAllCommits().ToList();
+       var expectedDate = new DateTimeOffset(1, 1, 1, 1, 1, 1, 1, TimeSpan.Zero);
+       list[0].date.Should().Be(expectedDate);
 
     }
 }

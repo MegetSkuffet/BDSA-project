@@ -17,7 +17,7 @@ public class DatabaseTests
     [Fact]
     public void read_when_empty_returns_empty()
     {
-        var actual =_db.getAllCommits(_repository);
+        var actual =_db.getCommitsPrDay(_repository);
         actual.Should().BeEmpty();
         
     }
@@ -25,15 +25,15 @@ public class DatabaseTests
     [Fact]
     public void frequencyMode_should_fill_commitDbSet()
     {
-        _db.AddRepoEntities(_repository);
-        var actual = _db.getAllCommits(_repository);
-        actual.Count.Should().BeGreaterThan(3);
+        _db.AddRepository(_repository);
+        var actual = _db.getCommitsPrDay(_repository);
+        actual.Count().Should().BeGreaterThan(3);
     }
 
     [Fact]
     public void frequencyMode_should_put_1_in_repoDbSet()
     {
-        _db.AddRepoEntities(_repository);
+        _db.AddRepository(_repository);
         var actual = _db.Context.Repositories.Count();
         actual.Should().Be(1);
     }

@@ -9,44 +9,39 @@ public static class Program
     public static void Main(string[] args)
     {
        
-        var repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\Assignment4_bdsa\Assignment_04");
+        var repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-02");
         Database db = new Database();
         
         
-        Console.WriteLine("First repository:");
-        db.AddRepoEntities(repository);
-        //PrintFrequencyModeFromDb(db.getAllCommits(repository));
+        db.AddRepository(repository);
+        PrintFrequencyModeFromDb(db.getCommitsPrDay(repository));
         PrintAuthorModeFromDb(db.getAllAuthors(repository));
+        db.AddRepository(repository);
+
         
-        /*Console.WriteLine("Second repository:");
-        repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\Assignment4_bdsa\Assignment_04");
-        db.frequencyMode(repository);
-        PrintFrequencyModeFromDb(db.getAllCommits(repository));
-        
-        Console.WriteLine("First again:");
-         repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\assignment3_bdsa\Assignment_03");
-         db.frequencyMode(repository);
-         PrintFrequencyModeFromDb(db.getAllCommits(repository));*/
-         
         
         
         
     }
 
-    private static void PrintFrequencyModeFromDb(IReadOnlyCollection<CommitDTO> commits)
+    private static void PrintFrequencyModeFromDb(IEnumerable<string> list)
     {
-        foreach (var v in commits)
+        foreach (var v in list)
         {
-            Console.WriteLine(v.date + ": " + v.amountPrDay);
+            Console.WriteLine(v);
         }
     }
 
-    private static void PrintAuthorModeFromDb(IReadOnlyCollection<AuthorDTO> commits)
+    private static void PrintAuthorModeFromDb(IEnumerable<(string author, IEnumerable<string>)> authors)
     {
-        foreach (var v in commits)
+        foreach (var v in authors)
         {
-            Console.WriteLine(v.Username + ":");
-            Console.WriteLine(v.date + ": " + v.amountPerDay);
+            Console.WriteLine(v.author);
+            foreach (var strings in v.Item2)
+            {
+                Console.WriteLine(strings);
+            }
+            
             
         }
     }

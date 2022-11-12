@@ -10,39 +10,53 @@ public class CommitService : ICommitService
     {
         _context = context;
     }
-    public (Response Response, string CommitId, DateTime date) Create(CommitDTO commit)
+    
+    public (Response Response, string CommitId, DateTimeOffset date) Create(CommitDTO commit)
     {
-        var entity = _context.CommitsPrDay.FirstOrDefault(c => c.RID == commit.RID && c.date == commit.date);
+        var entity = _context.Commits.FirstOrDefault(c => c.RID == commit.RID && c.CID == commit.CID);
         Response res;
         if (entity is null)
         {
-            entity = new CommitEntity() { RID = commit.RID, date = commit.date, amountPrDay = commit.amountPrDay};
-            _context.CommitsPrDay.Add(entity);
+            entity = new CommitEntity() { RID = commit.RID, date = commit.date, CID = commit.CID, Author = commit.AuthorName};
+            _context.Commits.Add(entity);
             _context.SaveChanges();
             res = Response.Created;
         }
         else
         {
+            Console.WriteLine("Commit already exists");
             res = Response.Conflict;
         }
 
-        var created = new CommitDTO(entity.RID, entity.date, entity.amountPrDay);
+        var created = new CommitDTO(entity.CID, entity.RID, entity.Author, entity.date);
         return (res, created.RID, created.date);
     }
-    public IReadOnlyCollection<CommitDTO> ReadAllCommits()
+    public IReadOnlyCollection<CommitDTO> GetAllCommits()
     {
-        var commits = from c in _context.CommitsPrDay
-            orderby c.date
-            select new CommitDTO(c.RID,c.date, c.amountPrDay);
-        return commits.ToArray();
+        IReadOnlyCollection<CommitDTO> commits = _context.Commits.Select(c => new CommitDTO(c.CID, c.RID, c.Author, c.date)).ToList();
+
+        return commits;
     }
-    public IReadOnlyCollection<CommitDTO> GetCommitsByRID(string RID)
+    
+
+    
+    public IEnumerable<string> getCommitsPrDay(string RID)
     {
-        var commits = from c in _context.CommitsPrDay
-            orderby c.date
-            where c.RID == RID
-            select new CommitDTO(c.RID,c.date, c.amountPrDay);
-        return commits.ToArray();
+        var commits = _context.Commits.ToList();
+
+        return commits.GroupBy(c => c.date.Date).Select(g => $"{g.Count(),7} {g.Key:dd-MM-yy}");
+    }
+
+    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(String RID)
+    {
+        var commits = _context.Commits.ToList();
+        var authors = commits.Select(c => c.Author).Distinct();
+        
+        foreach (var author in authors)
+        {
+            yield return (author, commits.Where(c => c.Author == author).GroupBy(i => i.date.Date).Select(g => $"{g.Count(),7} {g.Key:dd-MM-yy}"));
+
+        }
     }
     
 }
