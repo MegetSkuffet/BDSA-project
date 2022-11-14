@@ -1,4 +1,4 @@
-﻿using GitInsight.Core;
+﻿using LibGit2Sharp;
 
 namespace GitInsight;
 

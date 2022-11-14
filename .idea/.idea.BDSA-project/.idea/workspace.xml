@@ -8,21 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="33a53bdd-9c47-4772-903d-f0b058001efd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BDSA-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/AuthorDTO.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/CommitDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/CommitDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/IAuthorService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/ICommitService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/ICommitService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight.UnitTests/CommitServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight.UnitTests/CommitServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight/Database.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Database.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight/IDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/IDatabase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitInsight/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GitInsight/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/AuthorEntity.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/AuthorService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/CommitEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/CommitEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/CommitService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/CommitService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/GitInsightContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/GitInsightContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GitInsight/IDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/IDatabase.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +19,12 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Johan/UsingDBinactualprogram" />
+        <entry key="$PROJECT_DIR$" value="Johan/RefactorDB1" />
       </map>
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d058c687f4f32ee744b3b5b0f8b92bc4bc3c713fcca6c8813fdf9db8d67bdf36/Repository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9155e2314e53237c75354e4ed99c91031eaa29c5f1447b7e8a5967862d9e/DateTimeOffset.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GitInsight.UnitTests/CommitServiceTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GitInsight.UnitTests/DatabaseTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GitInsight/Database.cs" root0="FORCE_HIGHLIGHTING" />
@@ -54,16 +41,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Project.GitInsight">
     <configuration name="Core" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
