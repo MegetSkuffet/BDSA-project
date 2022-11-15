@@ -8,7 +8,8 @@ public class CloneService : ICloneService
     public Task<string> CloneRepositoryFromWebAsync(string gitUser, string gitRepository)
     {
         var repoURL = $"https://github.com/{gitUser}/{gitRepository}.git";
-        var localDir = Directory.GetCurrentDirectory();
+        
+        var localDir = "./repo";
 
         return Task.Factory.StartNew(() => Repository.Clone(repoURL, localDir),
             TaskCreationOptions.LongRunning);

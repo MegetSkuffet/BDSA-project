@@ -1,6 +1,7 @@
 ﻿using GitInsight.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace GitInsight.Controllers;
 
 
@@ -9,12 +10,12 @@ public class RepositoryController: Controller
 {
     
     private readonly ICloneService _cloneService;
-    private readonly IDatabase _database;
+    //private readonly IDatabase _database;
 
-    public RepositoryController(ICloneService cloneService, IDatabase database)
+    public RepositoryController(ICloneService cloneService)
     {
         _cloneService = cloneService;
-        _database = database;
+       // _database = database;
 
     }
 
@@ -29,13 +30,12 @@ public class RepositoryController: Controller
         }
 
         var repo = new Repository(repoPath);
-        _database.AddRepository(repo);
+        //_database.AddRepository(repo);
         
+       // var db = _database.getCommitsPrDay(repo);
         
         //put result of analysis into json instead of current placeholders
-        return Json(new {
-            user,repository
-        });
+        return Json(new{user,repository});
     }
     
 }

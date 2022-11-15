@@ -20,6 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models" />
+    <Folder Include="repo" />
   </ItemGroup>
   </Project>

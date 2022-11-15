@@ -1,4 +1,7 @@
-﻿namespace GitInsight;
+﻿using GitInsight.Core.Services;
+using Infrastructure.Services;
+
+namespace GitInsight;
 
 public class Startup
 {
@@ -16,7 +19,9 @@ public class Startup
         string connectionString = _configuration.GetConnectionString("DefaultConnection");
         //services.AddDbContext<GitInsightContext>(o => o.UseSqlite(connectionString));
         services.AddDatabaseDeveloperPageExceptionFilter();
-        services.AddControllers();       
+        services.AddScoped<ICloneService, CloneService>();
+        services.AddScoped<IDatabase, Database>();
+        services.AddControllers();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
