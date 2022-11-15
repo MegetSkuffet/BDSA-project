@@ -5,7 +5,7 @@ public interface ICommitService
 {
     (Response Response, string CommitId, DateTimeOffset date) Create(CommitDTO commit);
     IReadOnlyCollection<CommitDTO> GetAllCommits();
-    // CommitDTO Read(string CommitId);
+    public IEnumerable<string> getCommitsPrDay(string RID);
 
-    // TaskDetailsDTO Read(int taskId);
+    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(String RID);
 }

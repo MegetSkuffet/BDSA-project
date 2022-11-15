@@ -7,8 +7,8 @@ namespace GitInsight;
 
 public class Database : IDatabase
 {
-    private readonly CommitService _commitService;
-    private readonly RepositoryService _repositoryService;
+    private readonly ICommitService _commitService;
+    private readonly IRepositoryService _repositoryService;
     private readonly GitInsightContext _context;
     
     public Database()
@@ -102,7 +102,7 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable(string author, IEnumerable(string)) containing tuples of Authors (String) and IEnumerables containing strings in a format of "-amount- -date-"</returns>
-    public IEnumerable<(string author, IEnumerable<string>)> getAllAuthors(IRepository repository)
+    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(IRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrAuthor(repoId);

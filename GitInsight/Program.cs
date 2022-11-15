@@ -15,7 +15,7 @@ public static class Program
         
         db.AddRepository(repository);
         PrintFrequencyModeFromDb(db.getCommitsPrDay(repository));
-        PrintAuthorModeFromDb(db.getAllAuthors(repository));
+        PrintAuthorModeFromDb(db.getCommitsPrAuthor(repository));
         db.AddRepository(repository);
 
         

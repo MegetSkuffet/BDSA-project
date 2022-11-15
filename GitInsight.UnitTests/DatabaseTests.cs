@@ -10,16 +10,8 @@ public class DatabaseTests
     public DatabaseTests()
     {
         _db = new Database();
-         _repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-02");
+         _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\assignment3_bdsa\Assignment_03");
 
-    }
-
-    [Fact]
-    public void read_when_empty_returns_empty()
-    {
-        var actual =_db.getCommitsPrDay(_repository);
-        actual.Should().BeEmpty();
-        
     }
 
     [Fact]
@@ -36,6 +28,13 @@ public class DatabaseTests
         _db.AddRepository(_repository);
         var actual = _db.Context.Repositories.Count();
         actual.Should().Be(1);
+    }
+
+    [Fact]
+    public void getCommitsPrAuthor_should_return_()
+    {
+        var commits = _db.getCommitsPrAuthor(_repository).ToList();
+        commits.Count.Should().BeGreaterThan(3);
     }
     
 }
