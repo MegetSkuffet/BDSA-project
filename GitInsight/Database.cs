@@ -105,7 +105,7 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable<string> containing strings in a format of "-amount- -date-"</returns>
-    public IEnumerable<string> getCommitsPrDay(IRepository repository)
+    public IEnumerable<(int count, DateTime date)> getCommitsPrDay(IRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrDay(repoId);
@@ -116,7 +116,8 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable(string author, IEnumerable(string)) containing tuples of Authors (String) and IEnumerables containing strings in a format of "-amount- -date-"</returns>
-    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(IRepository repository)
+    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(
+        IRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrAuthor(repoId);

@@ -40,23 +40,30 @@ public class CommitService : ICommitService
     
 
     
-    public IEnumerable<string> getCommitsPrDay(string RID)
+    public IEnumerable<(int commitCount, DateTime date)> getCommitsPrDay(string RID)
     {
         var commits = _context.Commits.ToList();
 
-        return commits.GroupBy(c => c.date.Date).Select(g => $"{g.Count(),7} {g.Key:dd-MM-yy}");
+        
+        return commits.GroupBy(c => c.date.Date)
+            .Select(g => (g.Count(),g.Key));
     }
 
-    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(String RID)
+    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(String RID)
     {
         var commits = _context.Commits.ToList();
         var authors = commits.Select(c => c.Author).Distinct();
-        
+
+        var toReturn = new Dictionary<string, IEnumerable<(int commitCount, DateTime date)>>();
+
         foreach (var author in authors)
         {
-            yield return (author, commits.Where(c => c.Author == author).GroupBy(i => i.date.Date).Select(g => $"{g.Count(),7} {g.Key:dd-MM-yy}"));
-
+             toReturn.Add(author,commits.Where(c => c.Author == author)
+                 .GroupBy(i => i.date.Date)
+                 .Select(g => (g.Count(), g.Key)));
         }
+
+        return toReturn;
     }
     
 }

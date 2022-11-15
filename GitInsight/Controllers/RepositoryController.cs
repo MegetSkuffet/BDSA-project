@@ -9,12 +9,11 @@ public class RepositoryController: Controller
 {
     
     private readonly ICloneService _cloneService;
-    private readonly ICommitFrequencyService _frequencyService;
+    private readonly IDatabase _database;
 
-    public RepositoryController(ICloneService cloneService, ICommitFrequencyService frequencyService)
+    public RepositoryController(ICloneService cloneService)
     {
         _cloneService = cloneService;
-        _frequencyService = frequencyService;
     }
 
 
@@ -27,14 +26,11 @@ public class RepositoryController: Controller
             repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
-        IInsightRepository repo = new InsightRepository(new Repository(repoPath));
-
-        
-        var analysis = _frequencyService.GetAll(repo);
-            //Update the local repo
-            //Do analysis of repo or get analysis from db
+        var repo = new Repository(repoPath);
+        _database.AddRepository(repo);
         
         
+        //put result of analysis into json instead of current placeholders
         return Json(new {
             user,repository
         });

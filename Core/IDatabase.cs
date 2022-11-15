@@ -7,8 +7,9 @@ public interface IDatabase
     public void AddRepository(IRepository repository);
     //Adds repository commit entities and repository entity to db in frequency mode. Makes sure to check if latest version is newest, reads if so, writes if not.
 
-    public IEnumerable<string> getCommitsPrDay(IRepository repository);
+    public IEnumerable<(int count, DateTime date)> getCommitsPrDay(IRepository repository);
     //Returns list of commits for the repository.
 
-    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(IRepository repository);
+    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(
+        IRepository repository);
 }
