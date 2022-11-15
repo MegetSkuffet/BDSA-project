@@ -26,6 +26,20 @@ public class Database : IDatabase
         _commitService = new CommitService(_context);
         _repositoryService = new RepositoryService(_context);
     }
+    public Database(bool isInMemory)
+    {
+
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+        var builder = new DbContextOptionsBuilder<GitInsightContext>();
+        builder.UseSqlite(connection);
+        var context = new GitInsightContext(builder.Options);
+        context.Database.EnsureCreated();
+        context.SaveChanges();
+        _context = context;
+        _commitService = new CommitService(_context);
+        _repositoryService = new RepositoryService(_context);
+    }
 
     /// <summary>
     /// Adds all commits for a given repository to the database. Uses the method checkLatestSha in repositoryService to check if the latest commit is already in the database,

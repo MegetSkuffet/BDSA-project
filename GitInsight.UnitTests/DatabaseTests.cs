@@ -9,7 +9,7 @@ public class DatabaseTests
         
     public DatabaseTests()
     {
-        _db = new Database();
+        _db = new Database(true);
          _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\assignment3_bdsa\Assignment_03");
 
     }
