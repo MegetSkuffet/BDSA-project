@@ -14,7 +14,7 @@ public class CloneService : ICloneService
             TaskCreationOptions.LongRunning);
     }
 
-    public bool FindRepositoryOnMachine(string gitUser, string gitRepository, out string repoPath)
+    public bool FindRepositoryOnMachine(string gitRepository, out string repoPath)
     {
         var localDir = Directory.GetCurrentDirectory();
 

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using LibGit2Sharp;
 
 namespace GitInsight.Abstractions;
 

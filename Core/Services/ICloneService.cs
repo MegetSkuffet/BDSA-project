@@ -6,5 +6,5 @@ public interface ICloneService
     Task<string> CloneRepositoryFromWebAsync(string gitUser, string gitRepository);
     
     //Finds path of repository on machine
-    bool FindRepositoryOnMachine(string gitUser, string gitRepository, out string repoPath);
+    bool FindRepositoryOnMachine(string gitRepository, out string repoPath);
 }
