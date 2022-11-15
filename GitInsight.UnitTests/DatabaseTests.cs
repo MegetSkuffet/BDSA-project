@@ -10,7 +10,7 @@ public class DatabaseTests
     public DatabaseTests()
     {
         _db = new Database(true);
-         _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\assignment3_bdsa\Assignment_03");
+         _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\Assignment2_bdsa\assignment-02");
 
     }
 
@@ -33,6 +33,7 @@ public class DatabaseTests
     [Fact]
     public void getCommitsPrAuthor_should_return_()
     {
+        _db.AddRepository(_repository);
         var commits = _db.getCommitsPrAuthor(_repository).ToList();
         commits.Count.Should().BeGreaterThan(3);
     }
