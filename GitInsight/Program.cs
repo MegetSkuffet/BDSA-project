@@ -8,32 +8,45 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-       
-        var repository = new Repository(@"C:\Users\Johan\Desktop\ITU\3. semester\BDSA\assignment-02");
+        var parser = new Parser(s =>
+        {
+            s.EnableDashDash = true;
+            s.HelpWriter = Console.Error;
+        });
+        var result = parser.ParseArguments<Options>(args);
+        var options = result.Value;
+
+        if (result.Tag == ParserResultType.NotParsed)
+        {
+            return;
+        }
         Database db = new Database();
-        
-        
-        db.AddRepository(repository);
-        PrintFrequencyModeFromDb(db.getCommitsPrDay(repository));
-        PrintAuthorModeFromDb(db.getCommitsPrAuthor(repository));
+        var repository = new Repository(options.RepositoryPath);
         db.AddRepository(repository);
 
-        
-        
-        
-        
+        if (options.AuthorMode)
+        {
+            PrintAuthorModeFromDb(repository,db);
+        }
+        else
+        {
+            PrintFrequencyModeFromDb(repository, db);
+        }
     }
+    
 
-    private static void PrintFrequencyModeFromDb(IEnumerable<string> list)
+    private static void PrintFrequencyModeFromDb(IRepository repo, IDatabase db)
     {
+        var list = db.getCommitsPrDay(repo);
         foreach (var v in list)
         {
             Console.WriteLine(v);
         }
     }
 
-    private static void PrintAuthorModeFromDb(IEnumerable<(string author, IEnumerable<string>)> authors)
+    private static void PrintAuthorModeFromDb(IRepository repo, IDatabase db)
     {
+        var authors = db.getCommitsPrAuthor(repo);
         foreach (var v in authors)
         {
             Console.WriteLine(v.author);

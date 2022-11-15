@@ -9,4 +9,6 @@ public interface IDatabase
 
     public IEnumerable<string> getCommitsPrDay(IRepository repository);
     //Returns list of commits for the repository.
+
+    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(IRepository repository);
 }
