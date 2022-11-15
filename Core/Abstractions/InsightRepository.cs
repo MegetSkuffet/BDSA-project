@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using LibGit2Sharp;
 
-namespace GitInsight.Abstractions;
+namespace GitInsight.Core.Abstractions;
 
 public class InsightRepository : IInsightRepository
 {

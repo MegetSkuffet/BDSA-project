@@ -11,9 +11,11 @@ public class RepositoryController: Controller
     private readonly ICloneService _cloneService;
     private readonly IDatabase _database;
 
-    public RepositoryController(ICloneService cloneService)
+    public RepositoryController(ICloneService cloneService, IDatabase database)
     {
         _cloneService = cloneService;
+        _database = database;
+
     }
 
 

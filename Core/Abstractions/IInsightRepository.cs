@@ -1,4 +1,4 @@
-namespace GitInsight.Abstractions;
+namespace GitInsight.Core.Abstractions;
 
 public interface IInsightRepository
 {

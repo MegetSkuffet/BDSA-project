@@ -1,7 +1,4 @@
-﻿using GitInsight.Core;
-using Infrastructure;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
 
 namespace GitInsight;
 

@@ -1,4 +1,6 @@
 using GitInsight.Core;
+using Infrastructure.Entities;
+
 namespace Infrastructure;
 
 

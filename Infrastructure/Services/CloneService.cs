@@ -1,7 +1,7 @@
 ﻿using GitInsight.Core.Services;
 using LibGit2Sharp;
 
-namespace Infrastructure;
+namespace Infrastructure.Services;
 
 public class CloneService : ICloneService
 {

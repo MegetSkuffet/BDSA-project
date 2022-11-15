@@ -1,6 +1,3 @@
-using GitInsight.Core;
-using Microsoft.EntityFrameworkCore.Metadata;
-
 namespace GitInsight;
 
 public static class Program

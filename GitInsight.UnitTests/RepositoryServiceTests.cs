@@ -1,5 +1,6 @@
 using GitInsight.Core;
 using Infrastructure;
+using Infrastructure.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
