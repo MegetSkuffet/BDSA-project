@@ -3,9 +3,9 @@ namespace GitInsight.Core;
 
 public interface ICommitService
 {
-    (Response Response, string CommitId, DateTime date) Create(CommitDTO commit);
-    IReadOnlyCollection<CommitDTO> ReadAllCommits();
-    // CommitDTO Read(string CommitId);
+    (Response Response, string CommitId, DateTimeOffset date) Create(CommitDTO commit);
+    IReadOnlyCollection<CommitDTO> GetAllCommits();
+    public IEnumerable<string> getCommitsPrDay(string RID);
 
-    // TaskDetailsDTO Read(int taskId);
+    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(String RID);
 }

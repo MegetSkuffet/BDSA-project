@@ -3,7 +3,10 @@ namespace GitInsight.Core;
 
 public interface IRepositoryService
 {
-    (Response response, string ID) Create(RepositoryCreateDTO repository);
+    (Response response, string ID) Create(RepositoryCreateDto repository);
 
-    Response Update(RepositoryUpdateDTO repository);
+    Response Update(RepositoryUpdateDto repository);
+
+    public bool checkLatestSha(RepositoryUpdateDto repository);
+
 }
