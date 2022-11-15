@@ -1,4 +1,6 @@
-namespace GitInsight.Abstractions;
+using LibGit2Sharp;
+
+namespace GitInsight.Core.Abstractions;
 
 public record InsightCommit(InsightSignature Author)
 {

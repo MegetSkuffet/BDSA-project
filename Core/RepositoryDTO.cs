@@ -1,8 +1,8 @@
 namespace GitInsight.Core;
 
-public record RepositoryDTO(string ID, string LastcommitSha);
+public record RepositoryDto(string Id, string LastCommitSha);
 
-public record RepositoryCreateDTO(string ID, string LastcommitSha);
+public record RepositoryCreateDto(string Id, string LastCommitSha);
 
-public record RepositoryUpdateDTO(string ID, string LastcommitSha);
+public record RepositoryUpdateDto(string Id, string LastCommitSha);
 

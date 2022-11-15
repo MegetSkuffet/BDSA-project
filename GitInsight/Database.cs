@@ -1,7 +1,4 @@
-﻿using GitInsight.Core;
-using Infrastructure;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
 
 namespace GitInsight;
 
@@ -51,14 +48,14 @@ public class Database : IDatabase
     {
         var repoId = GetRepoId(repository);
         var latestSha = GetnewestCommitSha(repository);
-        if (!_repositoryService.checkLatestSha(new RepositoryUpdateDTO(repoId, latestSha)))
+        if (!_repositoryService.checkLatestSha(new RepositoryUpdateDto(repoId, latestSha)))
         {
             //Different sha, write repo entity into repo DBset and write all commit entities into commitsprday DBset
-            var response = _repositoryService.Create(new RepositoryCreateDTO(repoId, latestSha));
+            var response = _repositoryService.Create(new RepositoryCreateDto(repoId, latestSha));
             if (response.response == Response.Conflict)
             {
                 //RepoID already in DB, change existing entity sha to new latestsha.
-                _repositoryService.Update(new RepositoryUpdateDTO(repoId, latestSha));
+                _repositoryService.Update(new RepositoryUpdateDto(repoId, latestSha));
             }
             addCommits(repository);
         }
@@ -105,7 +102,7 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable<string> containing strings in a format of "-amount- -date-"</returns>
-    public IEnumerable<string> getCommitsPrDay(IRepository repository)
+    public IEnumerable<(int count, DateTime date)> getCommitsPrDay(IRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrDay(repoId);
@@ -116,7 +113,8 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable(string author, IEnumerable(string)) containing tuples of Authors (String) and IEnumerables containing strings in a format of "-amount- -date-"</returns>
-    public IEnumerable<(string author, IEnumerable<string>)> getCommitsPrAuthor(IRepository repository)
+    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(
+        IRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrAuthor(repoId);

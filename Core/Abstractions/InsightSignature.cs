@@ -1,4 +1,6 @@
-namespace GitInsight.Abstractions;
+using LibGit2Sharp;
+
+namespace GitInsight.Core.Abstractions;
 
 public record InsightSignature(string Name, string Email, DateTimeOffset When)
 {
