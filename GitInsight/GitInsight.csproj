@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.11" />
     <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0182" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.11" />
+    <PackageReference Include="Octokit" Version="4.0.1" />
     <PackageReference Include="SQLite" Version="3.13.0" />
   </ItemGroup>
 
@@ -20,6 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="repo" />
+    <Folder Include="repo1" />
   </ItemGroup>
   </Project>
