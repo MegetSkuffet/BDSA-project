@@ -13,13 +13,17 @@ public class RepositoryController: Controller
 {
     
     private readonly ICloneService _cloneService;
+    private string? connectionString;
     //private readonly IDatabase _database;
 
     public RepositoryController(ICloneService cloneService)
     {
         _cloneService = cloneService;
        // _database = database;
-
+       var configuration = new ConfigurationBuilder()
+           .AddUserSecrets<RepositoryController>()
+           .Build();
+       connectionString = configuration.GetConnectionString("ConnectionString");
     }
 
 
@@ -29,6 +33,9 @@ public class RepositoryController: Controller
     
     public async Task<IActionResult> CloneOrFind(string user, string repository)
     {
+        //safe secret 
+       
+        
         if (!_cloneService.FindRepositoryOnMachine(repository, out var repoPath))
         {
             repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
@@ -41,7 +48,7 @@ public class RepositoryController: Controller
        //forks test
        int count = 1000;
        var client = new GitHubClient(new ProductHeaderValue(repository));
-       var tokenAuth = new Credentials("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"); // NOTE: not real token
+       var tokenAuth = new Credentials(connectionString); // NOTE: not real token
        client.Credentials = tokenAuth;
        
        var request = new SearchRepositoriesRequest(repository) { Fork = ForkQualifier.IncludeForks,User = user};
