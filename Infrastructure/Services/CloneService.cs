@@ -17,7 +17,7 @@ public class CloneService : ICloneService
 
     public bool FindRepositoryOnMachine(string gitRepository, out string repoPath)
     {
-        var localDir = Directory.GetCurrentDirectory();
+        var localDir = "./repo";
 
         repoPath = Path.Combine(localDir, gitRepository);
 
