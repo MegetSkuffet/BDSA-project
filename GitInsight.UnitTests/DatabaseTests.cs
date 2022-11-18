@@ -10,7 +10,7 @@ public class DatabaseTests
     public DatabaseTests()
     {
         _db = new Database(true);
-         _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\Assignment2_bdsa\assignment-02");
+         _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\Skole\3.Semester\BDSA\Assignment1_bdsa\bdsa-Assignment_01");
 
     }
 
@@ -19,7 +19,7 @@ public class DatabaseTests
     {
         _db.AddRepository(_repository);
         var actual = _db.getCommitsPrDay(_repository);
-        actual.Count().Should().BeGreaterThan(3);
+        actual.Count().Should().BeGreaterThan(1);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class DatabaseTests
     {
         _db.AddRepository(_repository);
         var commits = _db.getCommitsPrAuthor(_repository).ToList();
-        commits.Count.Should().BeGreaterThan(3);
+        commits.Count.Should().BeGreaterThan(1);
     }
     
 }
