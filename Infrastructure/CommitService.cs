@@ -46,20 +46,20 @@ public class CommitService : ICommitService
         var commits = _context.Commits.ToList();
 
         
-        return commits.GroupBy(c => c.date.Date)
+        return commits.Where(c=>c.RID==RID).GroupBy(c => c.date.Date)
             .Select(g => (g.Count(),g.Key));
     }
 
     public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(String RID)
     {
         var commits = _context.Commits.ToList();
-        var authors = commits.Select(c => c.Author).Distinct();
+        var authors = commits.Where(c => c.RID==RID).Select(c=>c.Author).Distinct();
 
         var toReturn = new Dictionary<string, IEnumerable<(int commitCount, DateTime date)>>();
 
         foreach (var author in authors)
         {
-             toReturn.Add(author,commits.Where(c => c.Author == author)
+             toReturn.Add(author,commits.Where(c => c.Author == author && c.RID==RID)
                  .GroupBy(i => i.date.Date)
                  .Select(g => (g.Count(), g.Key)));
         }

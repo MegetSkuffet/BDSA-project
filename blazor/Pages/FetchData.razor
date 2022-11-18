@@ -5,9 +5,12 @@
 
 <h1>Weather forecast</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>skriv user og repo navn</p>
 
-@if (forecasts == null)
+
+
+
+@if (commits == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -23,13 +26,11 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var commit in commits)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@commit.date.ToShortDateString()</td>
+                    <td>@commit.count</td>
                 </tr>
             }
         </tbody>
@@ -37,21 +38,20 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    
+    
+    private committest[]? commits;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        commits = await Http.GetFromJsonAsync<committest[]>($"Repository/Megetskuffet/test");
     }
-
-    public class WeatherForecast
+    
+    
+    public class committest
     {
-        public DateOnly Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public DateTime date { get; set; }
+        public int count { get; set; }
     }
+    
 }

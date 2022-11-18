@@ -6,38 +6,50 @@ namespace GitInsight.Controllers;
 
 
 [ApiController]
+[Route("[controller]")]
 public class RepositoryController: Controller
 {
     
     private readonly ICloneService _cloneService;
-    //private readonly IDatabase _database;
+    private readonly IDatabase _database;
 
-    public RepositoryController(ICloneService cloneService)
+    public RepositoryController(ICloneService cloneService, IDatabase database)
     {
         _cloneService = cloneService;
-       // _database = database;
+        _database = database;
 
     }
 
 
     [HttpGet]
-    [Route("/{user}/{repository}")]
+    [Route("{user}/{repository}")]
     
     
-    public async Task<IActionResult> CloneOrFind(string user, string repository)
+    public async IAsyncEnumerable<committest> CloneOrFind(string user, string repository)
     {
+        
         if (!_cloneService.FindRepositoryOnMachine(repository, out var repoPath))
         {
             repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
+          
         }
 
         var repo = new Repository(repoPath);
-        //_database.AddRepository(repo);
+        _database.AddRepository(repo);
         
-       // var db = _database.getCommitsPrDay(repo);
+        
+        var db = _database.getCommitsPrDay(repo);
         
         //put result of analysis into json instead of current placeholders
-        return Json(new{user,repository});
+        foreach (var commit in db)
+        {
+            yield return new committest { date = commit.date, count = commit.count } ; 
+        }
     }
-    
+
+    public class committest
+    {
+        public DateTime date { get; set; }
+        public int count { get; set; }
+    }
 }

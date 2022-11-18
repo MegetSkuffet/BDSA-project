@@ -1,4 +1,5 @@
-﻿using GitInsight.Core.Services;
+﻿using System.Collections.Immutable;
+using GitInsight.Core.Services;
 using Infrastructure.Services;
 
 namespace GitInsight;
@@ -16,12 +17,21 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+            options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:5120");
+                }
+            ));
         string connectionString = _configuration.GetConnectionString("DefaultConnection");
         //services.AddDbContext<GitInsightContext>(o => o.UseSqlite(connectionString));
         services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddScoped<ICloneService, CloneService>();
         services.AddScoped<IDatabase, Database>();
         services.AddControllers();
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -30,6 +40,8 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
             app.UseMigrationsEndPoint();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
         else
         {
@@ -40,6 +52,7 @@ public class Startup
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseCors();
 
         app.UseEndpoints(b =>
         {

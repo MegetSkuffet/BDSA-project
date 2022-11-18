@@ -9,18 +9,21 @@ public class CloneService : ICloneService
     {
         var repoURL = $"https://github.com/{gitUser}/{gitRepository}.git";
         
-        var localDir = "./repo";
-
+        var localDir = $"./repo/{gitRepository}";
+        
         return Task.Factory.StartNew(() => Repository.Clone(repoURL, localDir),
             TaskCreationOptions.LongRunning);
+        
     }
 
     public bool FindRepositoryOnMachine(string gitRepository, out string repoPath)
     {
-        var localDir = Directory.GetCurrentDirectory();
+        var localDir = "./repo";
 
         repoPath = Path.Combine(localDir, gitRepository);
 
         return Directory.Exists(repoPath);
     }
+
+    
 }

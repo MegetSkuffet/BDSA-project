@@ -8,7 +8,7 @@ public class GitInsigtContextFactory : IDesignTimeDbContextFactory<GitInsightCon
     public GitInsightContext CreateDbContext(string[] args)
     {
         var optionBuilder = new DbContextOptionsBuilder<GitInsightContext>();
-        optionBuilder.UseSqlite("Data source=GitInsight.db");
+        optionBuilder.UseSqlite("Datasource=GitInsight.db");
 
         return new GitInsightContext(optionBuilder.Options);
     }

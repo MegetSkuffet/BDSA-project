@@ -11,7 +11,7 @@ public class Database : IDatabase
     public Database()
     {
 
-        var connection = new SqliteConnection("DataSource=database.db");
+        var connection = new SqliteConnection("DataSource=./GitInsight.db");
         connection.Open();
         
         var builder = new DbContextOptionsBuilder<GitInsightContext>();

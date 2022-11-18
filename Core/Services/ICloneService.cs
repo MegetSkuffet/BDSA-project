@@ -7,4 +7,5 @@ public interface ICloneService
     
     //Finds path of repository on machine
     bool FindRepositoryOnMachine(string gitRepository, out string repoPath);
+   
 }
