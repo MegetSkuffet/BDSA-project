@@ -1,57 +1,138 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@using System.Globalization
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Commit History</PageTitle>
 
-<h1>Weather forecast</h1>
-
-<p>skriv user og repo navn</p>
-
+<h1>Commit Histotory</h1>
 
 
+<div class="col-md-6 col-lg-6 p-3">
+    <h3>write the username of the repo owner</h3>
+    <input @bind="@userName"/>
+    <h3>write the name of the repo</h3>
+    <input @bind="@repoName"/>
+</div>
 
-@if (commits == null)
+<RadzenButton Shade="Shade.Lighter" Click="@commitfrequency" Text="CommitFrequency" ButtonStyle="ButtonStyle.Light" />
+<RadzenButton Shade="Shade.Lighter" Click="@authors" Text="Authors" ButtonStyle="ButtonStyle.Light" />
+
+
+@if (Authors != null)
 {
-    <p><em>Loading...</em></p>
+    @foreach (var author in Authors)
+    {
+       @if (author.AuthorCommits.Length == 0)
+       {
+           <p>den er tom</p>
+       }
+        <h1>@author.name</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <RadzenCard Class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
+                        <RadzenCheckBox @bind-Value="@smooth" Name="smooth"></RadzenCheckBox>
+                        <RadzenLabel Text="Smooth" For="smooth" Style="margin-right: 1rem;"/>
+                        <RadzenCheckBox @bind-Value="@showDataLabels" Name="dataLabels"></RadzenCheckBox>
+                        <RadzenLabel Text="Show Data Labels" For="dataLabels"/>
+                    </RadzenCard>
+                    <RadzenChart>
+                        <RadzenAreaSeries Smooth="@smooth" Data="@author.AuthorCommits" CategoryProperty="Date" Title="2019" ValueProperty="count" RenderingOrder="1">
+                            <RadzenSeriesDataLabels Visible="@showDataLabels"/>
+                        </RadzenAreaSeries>
+
+                        <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth"/>
+                        <RadzenValueAxis Formatter="@FormatAsCount">
+                            <RadzenGridLines Visible="true"/>
+                            <RadzenAxisTitle Text="Revenue in USD"/>
+                        </RadzenValueAxis>
+                    </RadzenChart>
+                </div>
+            </div>
+        </div>
+    }
+}
+else if (commits != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <RadzenCard Class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem" >
+                    <RadzenCheckBox @bind-Value="@smooth" Name="smooth"></RadzenCheckBox>
+                    <RadzenLabel Text="Smooth" For="smooth" Style="margin-right: 1rem;"/>
+                    <RadzenCheckBox @bind-Value="@showDataLabels" Name="dataLabels"></RadzenCheckBox>
+                    <RadzenLabel Text="Show Data Labels" For="dataLabels" />
+                </RadzenCard>
+                <RadzenChart>
+                    <RadzenAreaSeries Smooth="@smooth" Data="@commits" CategoryProperty="Date" Title="2019" ValueProperty="count" RenderingOrder="1">
+                        <RadzenSeriesDataLabels Visible="@showDataLabels" />
+                    </RadzenAreaSeries>
+                    
+                    <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
+                    <RadzenValueAxis Formatter="@FormatAsCount">
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Revenue in USD" />
+                    </RadzenValueAxis>
+                </RadzenChart>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var commit in commits)
-            {
-                <tr>
-                    <td>@commit.date.ToShortDateString()</td>
-                    <td>@commit.count</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <p><em>Waiting for input</em></p>
 }
 
 @code {
     
     
     private committest[]? commits;
-
-    protected override async Task OnInitializedAsync()
+    private Author[]? Authors;
+    bool smooth = false;
+    bool showDataLabels = true;
+    private string userName = "";
+    private string repoName = "";
+    private bool buttonclick = false;
+    
+    protected async Task commitfrequency()
     {
-        commits = await Http.GetFromJsonAsync<committest[]>($"Repository/Megetskuffet/test");
+        commits = await Http.GetFromJsonAsync<committest[]>($"Repository/commitfrequency/{userName}/{repoName}");
+    }
+
+    protected async Task authors()
+    {
+        Authors = await Http.GetFromJsonAsync<Author[]>($"Repository/Author/{userName}/{repoName}");
     }
     
+    string FormatAsMonth(object value)
+    {
+        if (value != null)
+        {
+            return Convert.ToDateTime(value).ToString("dd-MM-yyyy");
+        }
+
+        return string.Empty;
+    }
+
+    string FormatAsCount(object value)
+    {
+        if (value != null)
+        {
+            return value.ToString();
+        }
+        return  string.Empty;
+    }
     
     public class committest
     {
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
         public int count { get; set; }
+    }
+    
+    public class Author
+    {
+        public string name { get; set; }
+        public committest[] AuthorCommits { get; set; }
     }
     
 }

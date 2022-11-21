@@ -22,10 +22,8 @@ public class RepositoryController: Controller
 
 
     [HttpGet]
-    [Route("{user}/{repository}")]
-    
-    
-    public async IAsyncEnumerable<committest> CloneOrFind(string user, string repository)
+    [Route("commitfrequency/{user}/{repository}")]
+    public async IAsyncEnumerable<committest> Commitfrequencymode(string user, string repository)
     {
         
         if (!_cloneService.FindRepositoryOnMachine(repository, out var repoPath))
@@ -46,10 +44,46 @@ public class RepositoryController: Controller
             yield return new committest { date = commit.date, count = commit.count } ; 
         }
     }
+    
+    
+    [HttpGet]
+    [Route("Author/{user}/{repository}")]
+    public async IAsyncEnumerable<Author> Authormode(string user, string repository)
+    {
+        
+        if (!_cloneService.FindRepositoryOnMachine(repository, out var repoPath))
+        {
+            repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
+          
+        }
 
+        var repo = new Repository(repoPath);
+        _database.AddRepository(repo);
+        
+        
+        var db = _database.getCommitsPrAuthor(repo);
+        
+        //put result of analysis into json instead of current placeholders
+        foreach (var author in db)
+        { 
+            List<committest> list = new List<committest>();
+            
+            foreach (var commit in author.Value)
+            {
+                list.Add(new committest{date = commit.date, count = commit.commitCount});
+            }
+            yield return new Author{ name = author.Key, AuthorCommits = list.ToArray()} ; 
+        }
+    }
     public class committest
     {
         public DateTime date { get; set; }
         public int count { get; set; }
+    }
+    
+    public class Author
+    {
+        public string name { get; set; }
+        public committest[] AuthorCommits { get; set; }
     }
 }
