@@ -1,6 +1,7 @@
 ﻿using GitInsight.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Octokit;
+using Credentials = Octokit.Credentials;
 using ProductHeaderValue = System.Net.Http.Headers.ProductHeaderValue;
 using Repository = LibGit2Sharp.Repository;
 
@@ -15,7 +16,7 @@ public class RepositoryController: Controller
     
     private readonly ICloneService _cloneService;
     private readonly IDatabase _database;
-    private string? connectionString;
+    private string? _connectionString;
 
     public RepositoryController(ICloneService cloneService, IDatabase database)
     {
@@ -25,7 +26,7 @@ public class RepositoryController: Controller
         var configuration = new ConfigurationBuilder()
             .AddUserSecrets<RepositoryController>()
             .Build();
-        connectionString = configuration.GetConnectionString("ConnectionString");
+        _connectionString = configuration.GetConnectionString("ConnectionString");
 
     }
 
@@ -84,39 +85,22 @@ public class RepositoryController: Controller
             yield return new Author{ name = author.Key, AuthorCommits = list.ToArray()} ; 
         }
     }
-    // [HttpGet]
-    // [Route("Forks/{user}/{repository}")]
-    // public async IAsyncEnumerable<Forks> GetForks(string user, string repository)
-    // {
-    //     var client = new GitHubClient(new ProductHeaderValue(repository));
-    //     var tokenAuth = new Credentials(connectionString); // NOTE: not real token
-    //     client.Credentials = tokenAuth;
-    //     var request = new SearchRepositoriesRequest(repository) { Fork = ForkQualifier.IncludeForks,User = user};
-    //     var result = await client.Search.SearchRepo(request);
-    //     foreach (var item in result.Items)
-    //     {
-    //        
-    //         count = item.ForksCount;
-    //     }
-    //     Console.WriteLine("------------  {0} has {1} public repositories - go check out their profile at ??-------------",
-    //         userFork.Name,
-    //         userFork.PublicRepos
-    //     );
-    //
-    //     foreach (var author in db)
-    //     { 
-    //         List<committest> list = new List<committest>();
-    //         
-    //         foreach (var commit in author.Value)
-    //         {
-    //             list.Add(new committest{date = commit.date, count = commit.commitCount});
-    //         }
-    //         yield return new Author{ name = author.Key, AuthorCommits = list.ToArray()} ; 
-    //     }
-    //     
-    //     return Json(new { result });
-    // }
-    //
+    [HttpGet]
+    [Route("forks/{user}/{repository}")]
+    public async IAsyncEnumerable<Forks> GetForks(string user, string repository)
+    {
+        var client = new GitHubClient(new Octokit.ProductHeaderValue(repository));
+        var tokenAuth = new Credentials(_connectionString); // Token created with user-secret
+        client.Credentials = tokenAuth;
+        var forks = await client.Repository.Forks.GetAll(user, repository);
+        var info = forks.Select(c =>new{user=c.Owner.Login,repo=c.Name,url=c.GitUrl});
+    
+        foreach (var item in info)
+        {
+            yield return new Forks(){ user = item.user,repoName = item.repo, url = item.url} ; 
+        }
+    }
+    
     
     public class committest
     {
