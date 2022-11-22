@@ -1,16 +1,14 @@
-﻿using LibGit2Sharp;
-
-namespace GitInsight.UnitTests;
+﻿namespace GitInsight.UnitTests;
 
 public class DatabaseTests
 {
-        private Database _db;
-        private Repository _repository;
+        private IDatabase _db;
+        private IInsightRepository _repository;
         
     public DatabaseTests()
     {
         _db = new Database(true);
-         _repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\Skole\3.Semester\BDSA\Assignment1_bdsa\bdsa-Assignment_01");
+        _repository = Substitute.For<IInsightRepository>();
 
     }
 
@@ -18,7 +16,7 @@ public class DatabaseTests
     public void frequencyMode_should_fill_commitDbSet()
     {
         _db.AddRepository(_repository);
-        var actual = _db.getCommitsPrDay(_repository);
+        var actual = _db.GetCommitsPrDay(_repository);
         actual.Count().Should().BeGreaterThan(1);
     }
 
@@ -34,7 +32,7 @@ public class DatabaseTests
     public void getCommitsPrAuthor_should_return_()
     {
         _db.AddRepository(_repository);
-        var commits = _db.getCommitsPrAuthor(_repository).ToList();
+        var commits = _db.GetCommitsPrAuthor(_repository).ToList();
         commits.Count.Should().BeGreaterThan(1);
     }
     

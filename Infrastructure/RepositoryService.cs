@@ -57,7 +57,7 @@ public class RepositoryService : IRepositoryService
         return res;
     }
 
-    public bool checkLatestSha(RepositoryUpdateDto repository)
+    public bool CheckLatestSha(RepositoryUpdateDto repository)
     {
         var entity = _context.Repositories.FirstOrDefault(r => r.ID == repository.Id );
         Response res;

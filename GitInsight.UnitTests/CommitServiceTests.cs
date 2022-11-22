@@ -1,6 +1,5 @@
 ﻿using GitInsight.Core;
 using Infrastructure;
-using LibGit2Sharp;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,7 +54,7 @@ public class CommitServiceTests
     [Fact]
     public void using_actual_repository()
     {
-        var repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\Assignment2_bdsa\assignment-02");
+        var repository = Substitute.For<IInsightRepository>();
        var commits = repository.Commits.ToList();
        var commits2 = commits.GroupBy(c => c.Author.When.Date);
        foreach (var commit in commits2)
