@@ -1,0 +1,71 @@
+@page "/forkdata"
+@inject HttpClient Http
+@using System.Globalization
+
+@* @inject DialogService DialogService *@
+
+
+<div class="col-md-6 col-lg-6 p-3">
+    <h3>write the username of the repo owner</h3>
+    <input @bind="@userName"/>
+    <h3>write the name of the repo</h3>
+    <input @bind="@repoName"/>
+</div>
+
+<RadzenButton Shade="Shade.Lighter" Click="@forks" Text="See if there are forks" ButtonStyle="ButtonStyle.Light" />
+
+@if (allForks != null)
+{
+    <h4>Forks created from repository "@repoName"</h4>
+    <RadzenDataGrid ref="forksGrid" AllowFiltering="false" AllowPaging="true" PageSize="5" AllowSorting="false"
+                    Data="@allForks" TItem="Forks">
+        <Columns>
+            <RadzenDataGridColumn Width="50px" TItem="Forks" Title="#" Filterable="false" Sortable="false" TextAlign="TextAlign.Center">
+                <Template Context="data">
+                    @* @(allForks.IndexOf(data) + 1) -- can be made into creating a counting for each fork somehow?*@
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Forks" Property="UserName" Title="User Name">
+                <Template Context="fork">
+                    @* <RadzenImage Path="@order.Employee?.Photo" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px; float: left;" /> *@
+                    <RadzenText TextStyle="TextStyle.Subtitle2" Class="mb-0">@fork.user </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Caption">@fork.repoName</RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Forks" Property="OrderDate" Title="Date Of Creation" FormatString="{0:d}"/>
+            <RadzenDataGridColumn TItem="Forks" Property="URL" Title="URL">
+                <Template Context="fork">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" Class="mb-0">@fork.url </RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Forks" Property="Repository" Title="Repository">
+                <Template Context="fork">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" Class="mb-0">@fork.repoName </RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+
+
+@code {
+    RadzenDataGrid<Forks> forksGrid;
+    private Forks[]? allForks;
+    private string userName = "";
+    private string repoName = "";
+    private string urlName = "";
+    IList<Forks> forkListTest;
+    private bool buttonclick = false;
+    
+    protected async Task forks()
+    {
+        allForks = await Http.GetFromJsonAsync<Forks[]>($"Repository/forks/{userName}/{repoName}");
+    }
+    public class Forks
+    {
+        public string user { get; set; }
+        public string repoName { get; set; }
+        public string url { get; set; }
+    }
+}
