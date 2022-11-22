@@ -1,5 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using GitInsight.Core.Factories;
 using GitInsight.Core.Services;
+using GitInsight.Factories;
 using Infrastructure.Services;
 
 namespace GitInsight;
@@ -31,7 +32,8 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
+        services.AddTransient<ClonedRepositoryFactory.ClonedRepository>();
+        services.AddTransient<IClonedRepositoryFactory, ClonedRepositoryFactory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,15 +1,12 @@
 ﻿using GitInsight.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace GitInsight.Controllers;
-
 
 [ApiController]
 [Route("[controller]")]
-public class RepositoryController: Controller
+public class RepositoryController : Controller
 {
-    
     private readonly ICloneService _cloneService;
     private readonly IDatabase _database;
 
@@ -17,73 +14,68 @@ public class RepositoryController: Controller
     {
         _cloneService = cloneService;
         _database = database;
-
     }
-
 
     [HttpGet]
     [Route("commitfrequency/{user}/{repository}")]
-    public async IAsyncEnumerable<committest> Commitfrequencymode(string user, string repository)
+    public async IAsyncEnumerable<Commit> CommitFrequencyMode(string user, string repository)
     {
-        
-        if (!_cloneService.FindRepositoryOnMachine(repository, out var repoPath))
+        if (!_cloneService.FindRepositoryOnMachine(user, repository, out var handle))
         {
-            repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
-          
+            handle = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
-        var repo = new Repository(repoPath);
+        var repo = new Repository(handle.Path);
         _database.AddRepository(repo);
-        
-        
+
         var db = _database.getCommitsPrDay(repo);
-        
+
         //put result of analysis into json instead of current placeholders
         foreach (var commit in db)
         {
-            yield return new committest { date = commit.date, count = commit.count } ; 
+            yield return new Commit { Date = commit.date, Count = commit.count };
         }
     }
-    
-    
+
     [HttpGet]
     [Route("Author/{user}/{repository}")]
-    public async IAsyncEnumerable<Author> Authormode(string user, string repository)
+    public async IAsyncEnumerable<Author> AuthorMode(string user, string repository)
     {
-        
-        if (!_cloneService.FindRepositoryOnMachine(repository, out var repoPath))
+        if (!_cloneService.FindRepositoryOnMachine(user, repository, out var handle))
         {
-            repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
-          
+            handle = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
-        var repo = new Repository(repoPath);
+        var repo = new Repository(handle.Path);
         _database.AddRepository(repo);
-        
-        
+
         var db = _database.getCommitsPrAuthor(repo);
-        
+
         //put result of analysis into json instead of current placeholders
         foreach (var author in db)
-        { 
-            List<committest> list = new List<committest>();
-            
+        {
+            var list = new List<Commit>();
+
             foreach (var commit in author.Value)
             {
-                list.Add(new committest{date = commit.date, count = commit.commitCount});
+                list.Add(new Commit { Date = commit.date, Count = commit.commitCount });
             }
-            yield return new Author{ name = author.Key, AuthorCommits = list.ToArray()} ; 
+
+            yield return new Author { Name = author.Key, AuthorCommits = list.ToArray() };
         }
     }
-    public class committest
+
+    public class Commit
     {
-        public DateTime date { get; set; }
-        public int count { get; set; }
+        public DateTime Date { get; set; }
+
+        public int Count { get; set; }
     }
-    
+
     public class Author
     {
-        public string name { get; set; }
-        public committest[] AuthorCommits { get; set; }
+        public string Name { get; set; }
+
+        public Commit[] AuthorCommits { get; set; }
     }
 }
