@@ -1,6 +1,5 @@
 using GitInsight.Core;
 using Infrastructure.Entities;
-using LibGit2Sharp;
 
 namespace Infrastructure;
 
