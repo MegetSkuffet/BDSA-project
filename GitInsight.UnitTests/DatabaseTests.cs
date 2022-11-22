@@ -2,7 +2,7 @@
 
 public class DatabaseTests
 {
-        private IDatabase _db;
+        private Database _db;
         private IInsightRepository _repository;
         
     public DatabaseTests()
