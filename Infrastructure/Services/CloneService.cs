@@ -1,29 +1,38 @@
-﻿using GitInsight.Core.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+using GitInsight.Core.Factories;
+using GitInsight.Core.Services;
 using LibGit2Sharp;
 
 namespace Infrastructure.Services;
 
 public class CloneService : ICloneService
 {
-    public Task<string> CloneRepositoryFromWebAsync(string gitUser, string gitRepository)
+    private readonly IClonedRepositoryFactory _clonedRepositoryFactory;
+
+    public CloneService(IClonedRepositoryFactory clonedRepositoryFactory)
     {
-        var repoURL = $"https://github.com/{gitUser}/{gitRepository}.git";
-        
-        var localDir = $"./repo/{gitRepository}";
-        
-        return Task.Factory.StartNew(() => Repository.Clone(repoURL, localDir),
+        _clonedRepositoryFactory = clonedRepositoryFactory;
+    }
+
+    public async Task<IClonedRepository> CloneRepositoryFromWebAsync(string repository, string user)
+    {
+        var repoUrl = $"https://github.com/{user}/{repository}.git";
+        var tempPath = Path.GetTempPath();
+        var repoPath = Path.Combine(tempPath, user, repository);
+
+        var path = await Task.Factory.StartNew(() => Repository.Clone(repoUrl, repoPath),
             TaskCreationOptions.LongRunning);
-        
+
+        return _clonedRepositoryFactory.Create(path);
     }
 
-    public bool FindRepositoryOnMachine(string gitRepository, out string repoPath)
+    public bool FindRepositoryOnMachine(string user, string repository, [NotNullWhen(true)] out IClonedRepository? handle)
     {
-        var localDir = "./repo";
+        var tempPath = Path.GetTempPath();
+        var repoPath = Path.Combine(tempPath, user, repository);
+        var exists = Directory.Exists(repoPath);
+        handle = exists ? _clonedRepositoryFactory.Create(repoPath) : null;
 
-        repoPath = Path.Combine(localDir, gitRepository);
-
-        return Directory.Exists(repoPath);
+        return exists;
     }
-
-    
 }
