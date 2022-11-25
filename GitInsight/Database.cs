@@ -9,14 +9,14 @@ public class Database : IDatabase
     private readonly IRepositoryService _repositoryService;
     private readonly GitInsightContext _context;
     
-    public Database()
+    public Database(GitInsightContext context)
     {
-        var connection = new SqliteConnection("DataSource=database.db");
-        connection.Open();
-        
-        var builder = new DbContextOptionsBuilder<GitInsightContext>();
-        builder.UseSqlite(connection);
-        var context = new GitInsightContext(builder.Options);
+        // var connection = new SqliteConnection("DataSource=database.db");
+        // connection.Open();
+        //
+        // var builder = new DbContextOptionsBuilder<GitInsightContext>();
+        // builder.UseSqlite(connection);
+        // var context = new GitInsightContext(builder.Options);
         context.Database.EnsureCreated();
         context.SaveChanges();
         _context = context;
@@ -104,7 +104,7 @@ public class Database : IDatabase
     public IEnumerable<(int count, DateTime date)> GetCommitsPrDay(IInsightRepository repository)
     {
         var repoId = GetRepoId(repository);
-        return _commitService.getCommitsPrDay(repoId);
+        return _commitService.GetCommitsPrDay(repoId);
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ public class Database : IDatabase
         IInsightRepository repository)
     {
         var repoId = GetRepoId(repository);
-        return _commitService.getCommitsPrAuthor(repoId);
+        return _commitService.GetCommitsPrAuthor(repoId);
     }
 
     //Only used for unit testing purposes

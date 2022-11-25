@@ -3,36 +3,39 @@
 public class DatabaseTests
 {
         private Database _db;
-        private IInsightRepository _repository;
+        //private IInsightRepository _repository;
         
     public DatabaseTests()
     {
-        _db = new Database(true);
-        _repository = Substitute.For<IInsightRepository>();
+        //_db = new Database(true);
+        //_repository = Substitute.For<IInsightRepository>();
 
     }
 
-    [Fact]
-    public void frequencyMode_should_fill_commitDbSet()
+    [Theory]
+    [GitInsightData]
+    public void frequencyMode_should_fill_commitDbSet(Database database, IInsightRepository repository)
     {
-        _db.AddRepository(_repository);
-        var actual = _db.GetCommitsPrDay(_repository);
+        database.AddRepository(repository);
+        var actual = database.GetCommitsPrDay(repository);
         actual.Count().Should().BeGreaterThan(1);
     }
 
-    [Fact]
-    public void frequencyMode_should_put_1_in_repoDbSet()
+    [Theory]
+    [GitInsightData]
+    public void frequencyMode_should_put_1_in_repoDbSet(Database database, IInsightRepository repository)
     {
-        _db.AddRepository(_repository);
-        var actual = _db.Context.Repositories.Count();
+        database.AddRepository(repository);
+        var actual = database.Context.Repositories.Count();
         actual.Should().Be(1);
     }
 
-    [Fact]
-    public void getCommitsPrAuthor_should_return_()
+    [Theory]
+    [GitInsightData]
+    public void getCommitsPrAuthor_should_return_(Database database, IInsightRepository repository)
     {
-        _db.AddRepository(_repository);
-        var commits = _db.GetCommitsPrAuthor(_repository).ToList();
+        database.AddRepository(repository);
+        var commits = database.GetCommitsPrAuthor(repository).ToList();
         commits.Count.Should().BeGreaterThan(1);
     }
     

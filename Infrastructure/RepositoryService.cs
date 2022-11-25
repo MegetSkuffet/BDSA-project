@@ -49,8 +49,6 @@ public class RepositoryService : IRepositoryService
             entity.LastCommitSha = repository.LastCommitSha;
             _context.SaveChanges();
             res = Response.Updated;
-        }else if(_context.Repositories.FirstOrDefault(r=>r.ID !=repository.Id)!=null) {
-            res = Response.Conflict;
         }else {
             res = Response.NotFound;
         }

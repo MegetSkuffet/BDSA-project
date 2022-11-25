@@ -50,23 +50,4 @@ public class CommitServiceTests
 
         _context.Commits.Count().Should().Be(3);
     }
-
-    [Fact]
-    public void using_actual_repository()
-    {
-        var repository = Substitute.For<IInsightRepository>();
-       var commits = repository.Commits.ToList();
-       var commits2 = commits.GroupBy(c => c.Author.When.Date);
-       foreach (var commit in commits2)
-       {
-           var response = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
-       }
-
-
-       _service.GetAllCommits().Count().Should().Be(1);
-       var list = _service.GetAllCommits().ToList();
-       var expectedDate = new DateTimeOffset(1, 1, 1, 1, 1, 1, 1, TimeSpan.Zero);
-       list[0].date.Should().Be(expectedDate);
-
-    }
 }
