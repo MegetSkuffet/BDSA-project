@@ -49,15 +49,13 @@ public class RepositoryService : IRepositoryService
             entity.LastCommitSha = repository.LastCommitSha;
             _context.SaveChanges();
             res = Response.Updated;
-        }else if(_context.Repositories.FirstOrDefault(r=>r.ID !=repository.Id)!=null) {
-            res = Response.Conflict;
         }else {
             res = Response.NotFound;
         }
         return res;
     }
 
-    public bool checkLatestSha(RepositoryUpdateDto repository)
+    public bool CheckLatestSha(RepositoryUpdateDto repository)
     {
         var entity = _context.Repositories.FirstOrDefault(r => r.ID == repository.Id );
         Response res;

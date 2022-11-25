@@ -1,6 +1,5 @@
 ﻿using GitInsight.Core;
 using Infrastructure;
-using LibGit2Sharp;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,24 +49,5 @@ public class CommitServiceTests
         var response3 = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID3","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
 
         _context.Commits.Count().Should().Be(3);
-    }
-
-    [Fact]
-    public void using_actual_repository()
-    {
-        var repository = new Repository(@"C:\Users\johan\OneDrive\Desktop\3.Semester\BDSA\Assignment2_bdsa\assignment-02");
-       var commits = repository.Commits.ToList();
-       var commits2 = commits.GroupBy(c => c.Author.When.Date);
-       foreach (var commit in commits2)
-       {
-           var response = _service.Create(new CommitDTO("ExmapleRepoID","ExampleCommitID","AuthorName",new DateTimeOffset(1,1,1,1,1,1,1,TimeSpan.Zero)));
-       }
-
-
-       _service.GetAllCommits().Count().Should().Be(1);
-       var list = _service.GetAllCommits().ToList();
-       var expectedDate = new DateTimeOffset(1, 1, 1, 1, 1, 1, 1, TimeSpan.Zero);
-       list[0].date.Should().Be(expectedDate);
-
     }
 }

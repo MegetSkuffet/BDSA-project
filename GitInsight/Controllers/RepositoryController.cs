@@ -1,4 +1,5 @@
-﻿using GitInsight.Core.Services;
+﻿using GitInsight.Core.Abstractions;
+using GitInsight.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GitInsight.Controllers;
@@ -28,7 +29,7 @@ public class RepositoryController: Controller
             repoPath = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
-        var repo = new Repository(repoPath);
+        var repo = new InsightRepository(new Repository(repoPath));
         _database.AddRepository(repo);
         
         
