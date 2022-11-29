@@ -91,14 +91,15 @@ public class RepositoryController: Controller
     {
         var client = new GitHubClient(new Octokit.ProductHeaderValue(repository));
         var tokenAuth = new Credentials(_connectionString); // Token created with user-secret
-        client.Credentials = tokenAuth;
+        client.Credentials = tokenAuth; 
         var forks = await client.Repository.Forks.GetAll(user, repository);
         var info = forks.Select(c =>new{user=c.Owner.Login,repo=c.Name,url=c.GitUrl});
-    
+        
         foreach (var item in info)
         {
             yield return new Forks(){ user = item.user,repoName = item.repo, url = item.url} ; 
         }
+        // yield return new Forks(){ user ="user",repoName = "repo", url = "url"} ; 
     }
     
     

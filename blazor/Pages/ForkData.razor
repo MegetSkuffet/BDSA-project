@@ -60,7 +60,7 @@
     
     protected async Task forks()
     {
-        allForks = await Http.GetFromJsonAsync<Forks[]>($"Repository/forks/{userName}/{repoName}");
+         allForks = await Http.GetFromJsonAsync<Forks[]>($"Repository/forks/{userName}/{repoName}");
     }
     public class Forks
     {
