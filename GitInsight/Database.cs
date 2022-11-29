@@ -11,27 +11,6 @@ public class Database : IDatabase
     
     public Database(GitInsightContext context)
     {
-        // var connection = new SqliteConnection("DataSource=database.db");
-        // connection.Open();
-        //
-        // var builder = new DbContextOptionsBuilder<GitInsightContext>();
-        // builder.UseSqlite(connection);
-        // var context = new GitInsightContext(builder.Options);
-        context.Database.EnsureCreated();
-        context.SaveChanges();
-        _context = context;
-        _commitService = new CommitService(_context);
-        _repositoryService = new RepositoryService(_context);
-    }
-    public Database(bool isInMemory)
-    {
-        var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
-        var builder = new DbContextOptionsBuilder<GitInsightContext>();
-        builder.UseSqlite(connection);
-        var context = new GitInsightContext(builder.Options);
-        context.Database.EnsureCreated();
-        context.SaveChanges();
         _context = context;
         _commitService = new CommitService(_context);
         _repositoryService = new RepositoryService(_context);
