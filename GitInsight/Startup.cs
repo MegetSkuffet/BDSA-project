@@ -21,7 +21,7 @@ public class Startup
         services.AddCors(options =>
             options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("http://localhost:5120");
+                    policy.WithOrigins("http://localhost:5120", "https://localhost:5120");
                 }
             ));
         string connectionString = _configuration.GetConnectionString("DefaultConnection");

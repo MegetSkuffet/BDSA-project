@@ -33,7 +33,7 @@ public class ClonedRepositoryFactory : IClonedRepositoryFactory
             {
                 if (Directory.Exists(Path))
                 {
-                    Directory.Delete(Path, true);
+                    //Directory.Delete(Path, true);
                 }
             }
             catch (IOException)

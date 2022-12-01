@@ -14,8 +14,9 @@ public class CloneService : ICloneService
         _clonedRepositoryFactory = clonedRepositoryFactory;
     }
 
-    public async Task<IClonedRepository> CloneRepositoryFromWebAsync(string repository, string user)
+    public async Task<IClonedRepository> CloneRepositoryFromWebAsync(string user, string repository)
     {
+        Console.WriteLine(user + "       " + repository);
         var repoUrl = $"https://github.com/{user}/{repository}.git";
         var tempPath = Path.GetTempPath();
         var repoPath = Path.Combine(tempPath, user, repository);
