@@ -1,11 +1,10 @@
-﻿namespace GitInsight.Core.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace GitInsight.Core.Services;
 
 public interface ICloneService
 {
-    //Returns local path of repository after cloning
-    Task<string> CloneRepositoryFromWebAsync(string gitUser, string gitRepository);
-    
-    //Finds path of repository on machine
-    bool FindRepositoryOnMachine(string gitRepository, out string repoPath);
-   
+    Task<IClonedRepository> CloneRepositoryFromWebAsync(string user, string repository);
+
+    bool FindRepositoryOnMachine(string user, string repository, [NotNullWhen(true)] out IClonedRepository? handle);
 }
