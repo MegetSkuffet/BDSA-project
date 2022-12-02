@@ -7,6 +7,6 @@ public interface IRepositoryService
 
     Response Update(RepositoryUpdateDto repository);
 
-    public bool checkLatestSha(RepositoryUpdateDto repository);
+    public bool CheckLatestSha(RepositoryUpdateDto repository);
 
 }

@@ -18,6 +18,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+
         services.AddCors(options =>
             options.AddDefaultPolicy(policy =>
                 {
@@ -63,7 +64,7 @@ public class Startup
 
         using var scope = app.ApplicationServices.CreateScope();
 
-        //var dbContext = scope.ServiceProvider.GetRequiredService<GitInsightContext>();
-        //dbContext.Database.Migrate();
+        var dbContext = scope.ServiceProvider.GetRequiredService<GitInsightContext>();
+        dbContext.Database.Migrate();
     }
 }

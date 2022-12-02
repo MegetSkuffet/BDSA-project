@@ -1,4 +1,5 @@
-﻿using GitInsight.Core.Services;
+﻿using GitInsight.Core.Abstractions;
+using GitInsight.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GitInsight.Controllers;
@@ -46,7 +47,9 @@ public class RepositoryController : Controller
             handle = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
+
         var repo = new Repository(handle.Path);
+
         _database.AddRepository(repo);
 
         var db = _database.getCommitsPrAuthor(repo);

@@ -51,7 +51,9 @@ public class RepositoryServiceTests
     }
     
     [Fact]
-    public void Update_given_non_existing_Repo_returns_NotFound() => _service.Update(new RepositoryUpdateDto("42","ShaHere")).Should().Be(Response.NotFound);
+    public void Update_given_non_existing_Repo_returns_NotFound() => 
+        _service.Update(new RepositoryUpdateDto("42","ShaHere")).
+            Should().Be(Response.NotFound);
 
     #endregion
   

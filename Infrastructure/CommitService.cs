@@ -1,6 +1,5 @@
 using GitInsight.Core;
 using Infrastructure.Entities;
-using LibGit2Sharp;
 
 namespace Infrastructure;
 
@@ -41,16 +40,16 @@ public class CommitService : ICommitService
     
 
     
-    public IEnumerable<(int commitCount, DateTime date)> getCommitsPrDay(string RID)
+    public IEnumerable<(int commitCount, DateTime date)> GetCommitsPrDay(string rid)
     {
         var commits = _context.Commits.ToList();
 
         
-        return commits.Where(c=>c.RID==RID).GroupBy(c => c.date.Date)
-            .Select(g => (g.Count(),g.Key));
+
+        return commits.Where(c=>c.RID==RID).GroupBy(c => c.date.Date).Select(g => (g.Count(),g.Key));
     }
 
-    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(String RID)
+    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> GetCommitsPrAuthor(String rid)
     {
         var commits = _context.Commits.ToList();
         var authors = commits.Where(c => c.RID==RID).Select(c=>c.Author).Distinct();
@@ -59,6 +58,7 @@ public class CommitService : ICommitService
 
         foreach (var author in authors)
         {
+
              toReturn.Add(author,commits.Where(c => c.Author == author && c.RID==RID)
                  .GroupBy(i => i.date.Date)
                  .Select(g => (g.Count(), g.Key)));

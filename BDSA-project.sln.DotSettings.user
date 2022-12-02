@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3f1975b2_002Dc5d5_002D4606_002Da71a_002Db1e68accabd8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="frequencyMode_should_fill_commitDbSet" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::FE4DC217-4B1C-4FD9-AF8E-BADE8E52DE76::net6.0::GitInsight.UnitTests.DatabaseTests.frequencyMode_should_fill_commitDbSet&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6fa56463_002Dce4a_002D409b_002D8799_002D2427413a1b99/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="frequencyMode_should_fill_commitDbSet #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::FE4DC217-4B1C-4FD9-AF8E-BADE8E52DE76::net6.0::GitInsight.UnitTests.DatabaseTests.frequencyMode_should_fill_commitDbSet&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
