@@ -1,7 +1,7 @@
 # Functional Requirements
 
-* As a parameter, it should receive a url path to a Git repository on github 
-* Should show different outputs depending on different modes
+* As input, it receives a github username and a repository name.
+* Must show different outputs depending on chosen mode:
     * "Commit frequency: Should show amounts of commits in total for all days grouped by day"
     * "Commit Author Mode: Should show the amount of commits by a given author grouped by amount per day"
 * Results from queries must be stored in a persistent form.
