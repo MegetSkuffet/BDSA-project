@@ -29,6 +29,7 @@ public class Startup
         services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddScoped<ICloneService, CloneService>();
         services.AddScoped<IDatabase, Database>();
+        services.AddScoped<IHostedService, ApplicationLifetimeService>();
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();

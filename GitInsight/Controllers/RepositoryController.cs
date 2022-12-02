@@ -29,12 +29,14 @@ public class RepositoryController : Controller
         _database.AddRepository(repo);
 
         var db = _database.getCommitsPrDay(repo);
+        repo.Dispose();
 
         //put result of analysis into json instead of current placeholders
         foreach (var commit in db)
         {
             yield return new Commit { Date = commit.date, Count = commit.count };
         }
+
     }
 
     [HttpGet]
@@ -50,6 +52,7 @@ public class RepositoryController : Controller
         _database.AddRepository(repo);
 
         var db = _database.getCommitsPrAuthor(repo);
+        repo.Dispose();
 
         //put result of analysis into json instead of current placeholders
         foreach (var author in db)
