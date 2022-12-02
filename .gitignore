@@ -32,3 +32,8 @@ obj/
 .idea
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,dotnetcore
+
+# Database
+*.db
+*.db-shm
+*.db-wal

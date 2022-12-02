@@ -13,8 +13,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        string connectionString = _configuration.GetConnectionString("DefaultConnection");
-        //services.AddDbContext<GitInsightContext>(o => o.UseSqlite(connectionString));
+        services.AddDbContext<GitInsightContext>(o => o.UseSqlite("Data Source=GitInsight.db"));
         services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddControllers();       
     }
@@ -43,7 +42,7 @@ public class Startup
 
         using var scope = app.ApplicationServices.CreateScope();
 
-        //var dbContext = scope.ServiceProvider.GetRequiredService<GitInsightContext>();
-        //dbContext.Database.Migrate();
+        var dbContext = scope.ServiceProvider.GetRequiredService<GitInsightContext>();
+        dbContext.Database.Migrate();
     }
 }
