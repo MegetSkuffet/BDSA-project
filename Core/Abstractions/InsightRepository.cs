@@ -3,7 +3,7 @@ using LibGit2Sharp;
 
 namespace GitInsight.Core.Abstractions;
 
-public class InsightRepository : IInsightRepository
+public class InsightRepository : IInsightRepository, IDisposable
 {
     private readonly IRepository _repository;
 
@@ -43,5 +43,10 @@ public class InsightRepository : IInsightRepository
         _commits.Clear();
         var newCommits = _repository.Commits.Select(InsightCommit.FromCommit);
         _commits.AddRange(newCommits);
+    }
+
+    public void Dispose()
+    {
+        _repository.Dispose();
     }
 }

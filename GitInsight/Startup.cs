@@ -18,6 +18,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        
         services.AddCors(options =>
             options.AddDefaultPolicy(policy =>
                 {
@@ -26,6 +27,7 @@ public class Startup
             ));
         string connectionString = _configuration.GetConnectionString("DefaultConnection");
         //services.AddDbContext<GitInsightContext>(o => o.UseSqlite(connectionString));
+        services.AddDbContext<GitInsightContext>(o => o.UseSqlite("Data Source=GitInsight.db"));
         services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddScoped<ICloneService, CloneService>();
         services.AddScoped<IDatabase, Database>();
@@ -64,7 +66,7 @@ public class Startup
 
         using var scope = app.ApplicationServices.CreateScope();
 
-        //var dbContext = scope.ServiceProvider.GetRequiredService<GitInsightContext>();
-        //dbContext.Database.Migrate();
+        var dbContext = scope.ServiceProvider.GetRequiredService<GitInsightContext>();
+        dbContext.Database.Migrate();
     }
 }
