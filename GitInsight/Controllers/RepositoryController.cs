@@ -90,7 +90,6 @@ public class RepositoryController : Controller
         {
             yield return new Forks(){ user = item.user,repoName = item.repo, url = item.url} ; 
         }
-        // yield return new Forks(){ user ="user",repoName = "repo", url = "url"} ; 
     }
     
     public class Commit
