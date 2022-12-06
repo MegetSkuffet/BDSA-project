@@ -17,3 +17,4 @@
 * The web-application should expose a REST API.
 * The REST API shall return the analysis results via JSON objects.
 * There must be blazor webassembly frontend
+* Must use Github API to get the amount of forks for a given repository
