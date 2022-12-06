@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using GitInsight.Core.Abstractions;
 
 namespace GitInsight;
 
@@ -8,17 +9,10 @@ public class Database : IDatabase
     private readonly IRepositoryService _repositoryService;
     private readonly GitInsightContext _context;
     
-    public Database()
+    public Database(GitInsightContext context)
     {
 
-        var connection = new SqliteConnection("DataSource=./GitInsight.db");
-        connection.Open();
         
-        var builder = new DbContextOptionsBuilder<GitInsightContext>();
-        builder.UseSqlite(connection);
-        var context = new GitInsightContext(builder.Options);
-        context.Database.EnsureCreated();
-        context.SaveChanges();
         _context = context;
         _commitService = new CommitService(_context);
         _repositoryService = new RepositoryService(_context);
@@ -44,7 +38,7 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>void</returns>
-    public void AddRepository(IRepository repository)
+    public void AddRepository(IInsightRepository repository)
     {
         var repoId = GetRepoId(repository);
         var latestSha = GetnewestCommitSha(repository);
@@ -57,7 +51,7 @@ public class Database : IDatabase
                 //RepoID already in DB, change existing entity sha to new latestsha.
                 _repositoryService.Update(new RepositoryUpdateDto(repoId, latestSha));
             }
-            addCommits(repository);
+            AddCommits(repository);
         }
     }
 
@@ -66,7 +60,7 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="r">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>The SHA as a string</returns>
-    private string GetRepoId(IRepository r)
+    private string GetRepoId(IInsightRepository r)
     {
         //Returns SHA of very first commit on repo, should be unique
         return r.Commits.ToList()[0].Sha;
@@ -77,7 +71,7 @@ public class Database : IDatabase
     /// <param name="r">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>The SHA as a string</returns>
     
-    private string GetnewestCommitSha(IRepository r)
+    private string GetnewestCommitSha(IInsightRepository r)
     {
         //Returns SHA of latest commit on the repo
         return r.Commits.ToList()[r.Commits.ToList().Count - 1].Sha;
@@ -87,7 +81,7 @@ public class Database : IDatabase
     /// Method only used by <c>AddRepository</c> method to add all commits for a given repository to the database.
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
-    private void addCommits(IRepository repository)
+    private void AddCommits(IInsightRepository repository)
     {
         var commits = repository.Commits;
         var RID = GetRepoId(repository);
@@ -102,7 +96,7 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable<string> containing strings in a format of "-amount- -date-"</returns>
-    public IEnumerable<(int count, DateTime date)> getCommitsPrDay(IRepository repository)
+    public IEnumerable<(int count, DateTime date)> GetCommitsPrDay(IInsightRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrDay(repoId);
@@ -113,8 +107,8 @@ public class Database : IDatabase
     /// </summary>
     /// <param name="repository">The IRepository to be used, created with a path to the repository.</param>
     /// <returns>An IEnumerable(string author, IEnumerable(string)) containing tuples of Authors (String) and IEnumerables containing strings in a format of "-amount- -date-"</returns>
-    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> getCommitsPrAuthor(
-        IRepository repository)
+    public IReadOnlyDictionary<string, IEnumerable<(int commitCount, DateTime date)>> GetCommitsPrAuthor(
+        IInsightRepository repository)
     {
         var repoId = GetRepoId(repository);
         return _commitService.getCommitsPrAuthor(repoId);

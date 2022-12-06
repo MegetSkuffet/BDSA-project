@@ -4,30 +4,26 @@
 
 <PageTitle>Commit History</PageTitle>
 
-<h1>Commit Histotory</h1>
+<h1>Commit History</h1>
 
 
 <div class="col-md-6 col-lg-6 p-3">
-    <h3>write the username of the repo owner</h3>
+    <h3>Write the username of the repo owner</h3>
     <input @bind="@userName"/>
-    <h3>write the name of the repo</h3>
+    <h3>Write the name of the repo</h3>
     <input @bind="@repoName"/>
 </div>
 
-<RadzenButton Shade="Shade.Lighter" Click="@commitfrequency" Text="CommitFrequency" ButtonStyle="ButtonStyle.Light" />
-<RadzenButton Shade="Shade.Lighter" Click="@authors" Text="Authors" ButtonStyle="ButtonStyle.Light" />
+<RadzenButton Shade="Shade.Lighter" Click="@Commitfrequency" Text="CommitFrequency" ButtonStyle="ButtonStyle.Light" />
+<RadzenButton Shade="Shade.Lighter" Click="@Authors" Text="Authors" ButtonStyle="ButtonStyle.Light" />
 
-
-@if (Authors != null)
+ <div class="container">
+@if (authors != null)
 {
-    @foreach (var author in Authors)
+    @foreach (var author in authors)
     {
-       @if (author.AuthorCommits.Length == 0)
-       {
-           <p>den er tom</p>
-       }
         <h1>@author.name</h1>
-        <div class="container">
+       
             <div class="row">
                 <div class="col">
                     <RadzenCard Class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
@@ -49,12 +45,12 @@
                     </RadzenChart>
                 </div>
             </div>
-        </div>
+       
     }
 }
 else if (commits != null)
 {
-    <div class="container">
+   
         <div class="row">
             <div class="col">
                 <RadzenCard Class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem" >
@@ -76,30 +72,36 @@ else if (commits != null)
                 </RadzenChart>
             </div>
         </div>
-    </div>
+  
 }
 else
 {
     <p><em>Waiting for input</em></p>
+    <p>@userName</p>
+    <p>@repoName</p>
 }
+  </div>
 
 @code {
-    private committest[]? commits;
-    private Author[]? Authors;
+
+    private Commit[]? commits;
+    private Author[]? authors;
     bool smooth = false;
     bool showDataLabels = true;
     private string userName = "";
     private string repoName = "";
     private bool buttonclick = false;
     
-    protected async Task commitfrequency()
+    protected async Task Commitfrequency()
     {
-        commits = await Http.GetFromJsonAsync<committest[]>($"Repository/commitfrequency/{userName}/{repoName}");
+        authors = null;
+        commits = await Http.GetFromJsonAsync<Commit[]>($"Repository/commitfrequency/{userName}/{repoName}");
     }
 
-    protected async Task authors()
+    protected async Task Authors()
     {
-        Authors = await Http.GetFromJsonAsync<Author[]>($"Repository/Author/{userName}/{repoName}");
+        commits = null;
+        authors = await Http.GetFromJsonAsync<Author[]>($"Repository/Author/{userName}/{repoName}");
     }
     
     string FormatAsMonth(object value)
@@ -121,7 +123,7 @@ else
         return  string.Empty;
     }
     
-    public class committest
+    public class Commit
     {
         public DateTime Date { get; set; }
         public int count { get; set; }
@@ -130,7 +132,6 @@ else
     public class Author
     {
         public string name { get; set; }
-        public committest[] AuthorCommits { get; set; }
+        public Commit[] AuthorCommits { get; set; }
     }
-    
 }

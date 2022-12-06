@@ -4,6 +4,7 @@ using Octokit;
 using Credentials = Octokit.Credentials;
 using ProductHeaderValue = System.Net.Http.Headers.ProductHeaderValue;
 using Repository = LibGit2Sharp.Repository;
+using GitInsight.Core.Abstractions;
 
 namespace GitInsight.Controllers;
 
@@ -36,16 +37,18 @@ public class RepositoryController : Controller
             handle = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
-        var repo = new Repository(handle.Path);
+        var repo = new InsightRepository(new Repository(handle.Path));
         _database.AddRepository(repo);
 
-        var db = _database.getCommitsPrDay(repo);
+        var db = _database.GetCommitsPrDay(repo);
+        repo.Dispose();
 
         //put result of analysis into json instead of current placeholders
         foreach (var commit in db)
         {
             yield return new Commit { Date = commit.date, Count = commit.count };
         }
+
     }
 
     [HttpGet]
@@ -57,10 +60,11 @@ public class RepositoryController : Controller
             handle = await _cloneService.CloneRepositoryFromWebAsync(user, repository);
         }
 
-        var repo = new Repository(handle.Path);
+        var repo = new InsightRepository(new Repository(handle.Path));
         _database.AddRepository(repo);
 
-        var db = _database.getCommitsPrAuthor(repo);
+        var db = _database.GetCommitsPrAuthor(repo);
+        repo.Dispose();
 
         //put result of analysis into json instead of current placeholders
         foreach (var author in db)
