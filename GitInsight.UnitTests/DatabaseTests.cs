@@ -18,7 +18,7 @@ public class DatabaseTests
     public void frequencyMode_should_fill_commitDbSet()
     {
         _db.AddRepository(_repository);
-        var actual = _db.getCommitsPrDay(_repository);
+        var actual = _db.GetCommitsPrDay(_repository);
         actual.Count().Should().BeGreaterThan(3);
     }
 
@@ -34,7 +34,7 @@ public class DatabaseTests
     public void getCommitsPrAuthor_should_return_()
     {
         _db.AddRepository(_repository);
-        var commits = _db.getCommitsPrAuthor(_repository).ToList();
+        var commits = _db.GetCommitsPrAuthor(_repository).ToList();
         commits.Count.Should().BeGreaterThan(3);
     }
     
